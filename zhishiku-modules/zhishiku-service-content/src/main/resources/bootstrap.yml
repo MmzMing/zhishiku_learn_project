@@ -1,0 +1,28 @@
+# Tomcat
+server:
+  servlet:
+    context-path: /content
+  port: 40010
+# Spring
+spring:
+  application:
+    name: zhishiku-service-content
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      #配置文件相关配置
+      config:
+        file-extension: yaml
+        refresh-enabled: true
+        shared-configs:
+          - data-id: application.yaml
+            group: ${spring.profiles.active}
+            refresh: true
+        extension-configs:
+          - data-id: ${spring.application.name}-${spring.profiles.active}.yaml
+            group: ${spring.profiles.active}
+            refresh: true
+      #服务注册相关配置
+      discovery:
+        group: ${spring.profiles.active}

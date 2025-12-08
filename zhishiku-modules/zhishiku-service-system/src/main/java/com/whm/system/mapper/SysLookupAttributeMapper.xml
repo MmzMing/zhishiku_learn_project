@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whm.system.mapper.SysLookupAttributeMapper">
+    <sql id="selectSysLookupAttributeVo">
+        SELECT
+            id,lookup_type_id,tbl_value,tbl_attribute,label,require_flag,status,create_by,create_name,create_time,update_by,update_name,update_time,remark,deleted
+        FROM sys_lookup_attribute
+    </sql>
+    <select id="pageQuery" parameterType="com.whm.system.domain.po.SysLookupAttribute" resultType="com.whm.system.domain.po.SysLookupAttribute">
+        <include refid="selectSysLookupAttributeVo"/>
+        where 1=1
+        <if test="param.id != null and param.id != ''">
+            and id = #{param.id}
+        </if>
+        <if test="param.lookupTypeId != null and param.lookupTypeId != ''">
+            and lookup_type_id = #{param.lookupTypeId}
+        </if>
+        <if test="param.tblValue != null and param.tblValue != ''">
+            and tbl_value = #{param.tblValue}
+        </if>
+        <if test="param.tblAttribute != null and param.tblAttribute != ''">
+            and tbl_attribute = #{param.tblAttribute}
+        </if>
+        <if test="param.label != null and param.label != ''">
+            and label = #{param.label}
+        </if>
+        <if test="param.requireFlag != null and param.requireFlag != ''">
+            and require_flag = #{param.requireFlag}
+        </if>
+        <if test="param.status != null and param.status != ''">
+            and status = #{param.status}
+        </if>
+        <if test="param.createBy != null and param.createBy != ''">
+            and create_by = #{param.createBy}
+        </if>
+        <if test="param.createName != null and param.createName != ''">
+            and create_name = #{param.createName}
+        </if>
+        <if test="param.createTime != null">
+            and create_time = #{param.createTime}
+        </if>
+        <if test="param.updateBy != null and param.updateBy != ''">
+            and update_by = #{param.updateBy}
+        </if>
+        <if test="param.updateName != null and param.updateName != ''">
+            and update_name = #{param.updateName}
+        </if>
+        <if test="param.updateTime != null">
+            and update_time = #{param.updateTime}
+        </if>
+        <if test="param.remark != null and param.remark != ''">
+            and remark = #{param.remark}
+        </if>
+        <if test="param.deleted != null and param.deleted != ''">
+            and deleted = #{param.deleted}
+        </if>
+    </select>
+</mapper>

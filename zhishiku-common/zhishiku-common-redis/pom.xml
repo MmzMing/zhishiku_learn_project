@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.whm</groupId>
+        <artifactId>zhishiku-common</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>zhishiku-common-redis</artifactId>
+    <name>${project.artifactId}</name>
+    <packaging>jar</packaging>
+    <version>${whm.core.version}</version>
+    <description>
+        redis缓存服务
+    </description>
+
+    <dependencies>
+        <!-- SpringBoot Boot Redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+        </dependency>
+        <!-- Ids Common Core-->
+        <dependency>
+            <groupId>com.whm</groupId>
+            <artifactId>zhishiku-common-core</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

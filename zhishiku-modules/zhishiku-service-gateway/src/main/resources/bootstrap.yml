@@ -1,0 +1,47 @@
+# Tomcat
+server:
+  port: 30000
+# Spring
+spring:
+  application:
+    name: zhishiku-service-gateway
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      #配置文件相关配置
+      config:
+        file-extension: yaml
+        refresh-enabled: true
+        shared-configs:
+          - data-id: application.yaml
+            group: ${spring.profiles.active}
+            refresh: true
+        extension-configs:
+          - data-id: ${spring.application.name}-${spring.profiles.active}.yaml
+            group: ${spring.profiles.active}
+            refresh: true
+      #服务注册相关配置
+      discovery:
+        group: ${spring.profiles.active}
+    sentinel:
+    # 取消控制台懒加载
+      eager: true
+      transport:
+      # 控制台地址
+        dashboard: ${sentinel.dashboard-addr}
+    # nacos配置持久化
+      datasource:
+        ds1:
+          nacos:
+            server-addr: ${spring.cloud.nacos.server-addr}
+            data-id: sentinel-zhishiku-gateway
+            group-id: zhishiku-cloud
+            data-type: json
+            rule-type: flow
+#      ds2:
+#        nacos:
+#          server-addr: ${spring.cloud.nacos.server-addr}
+#          data-id: ${spring.application.name}-sentinel-degrade
+#          group-id: DEFAULT_GROUP
+#          rule-type: degrade

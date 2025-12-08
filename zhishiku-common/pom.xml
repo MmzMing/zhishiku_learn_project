@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>zhishiku-common</artifactId>
+    <packaging>pom</packaging>
+    <description>common通用模块</description>
+
+    <parent>
+        <groupId>com.whm</groupId>
+        <artifactId>zhishiku-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../zhishiku-parent</relativePath>
+    </parent>
+    <modules>
+        <module>zhishiku-common-core</module>
+        <module>zhishiku-common-mybatis</module>
+        <module>zhishiku-common-swagger</module>
+        <module>zhishiku-common-security</module>
+        <module>zhishiku-common-log</module>
+        <module>zhishiku-common-redis</module>
+        <module>zhishiku-common-xxl-job</module>
+    </modules>
+</project>

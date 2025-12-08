@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.whm</groupId>
+    <artifactId>zhishiku-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>zhishiku-parent</name>
+    <description>父工程</description>
+    <packaging>pom</packaging>
+
+    <properties>
+        <whm.core.version>1.0.0-SNAPSHOT</whm.core.version>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring-boot.version>2.6.7</spring-boot.version>
+        <spring-cloud.version>2021.0.1</spring-cloud.version>
+        <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
+        <!-- 数据库 -->
+        <druid.version>1.2.8</druid.version>
+        <mysql-connector-java.version>8.0.30</mysql-connector-java.version>
+        <mybatis-spring-boot.mybatis>2.2.2</mybatis-spring-boot.mybatis>
+        <mybatis-plus.version>3.5.2</mybatis-plus.version>
+        <!-- 组件 -->
+        <redission.version>3.23.3</redission.version>
+        <xxl-job-core.version>2.4.1</xxl-job-core.version>
+        <elasticsearch.version>7.12.1</elasticsearch.version>
+        <swagger.version>3.0.0</swagger.version>
+        <swagger.core.version>1.6.2</swagger.core.version>
+        <minio.version>8.4.3</minio.version>
+        <okhttp.version>4.8.1</okhttp.version>
+        <simplemagic.version>1.17</simplemagic.version>
+        <!-- 插件 -->
+        <lombok.version>1.18.24</lombok.version>
+        <fastjson.version>1.2.80</fastjson.version>
+        <commons.io.version>2.11.0</commons.io.version>
+        <commons-collections.version>3.2.2</commons-collections.version>
+        <commons.fileupload.version>1.4</commons.fileupload.version>
+        <jjwt.version>0.9.1</jjwt.version>
+        <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
+        <hutool.version>5.8.0.M2</hutool.version>
+        <easypoi.version>4.3.0</easypoi.version>
+        <pagehelper.boot.version>1.3.1</pagehelper.boot.version>
+        <transmittable-thread-local.version>2.12.2</transmittable-thread-local.version>
+        <guava.version>20.0</guava.version>
+    </properties>
+    <dependencies>
+        <!--  bootstrap 启动器  -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>log4j-to-slf4j</artifactId>
+                    <groupId>org.apache.logging.log4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <!--  SpringCloud 微服务  -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--  SpringCloud Alibaba 微服务  -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--  SpringBoot 依赖配置  -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- 数据库 -->
+            <!--druid数据连接池-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <!-- mySQL数据库驱动包管理 -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector-java.version}</version>
+            </dependency>
+            <!--  Mybatis 依赖配置  -->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-spring-boot.mybatis}</version>
+            </dependency>
+            <!-- mybatis plus 代码生成器 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-annotation</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <!-- 组件 -->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redission.version}</version>
+            </dependency>
+            <!--分布式任务调度-->
+            <dependency>
+                <groupId>com.xuxueli</groupId>
+                <artifactId>xxl-job-core</artifactId>
+                <version>${xxl-job-core.version}</version>
+            </dependency>
+            <!--  搜索引擎  -->
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+            <!-- Swagger UI -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-models</artifactId>
+                <version>${swagger.core.version}</version>
+            </dependency>
+            <!-- 分布式文件系统 minIO的客户端API包 -->
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.j256.simplemagic</groupId>
+                <artifactId>simplemagic</artifactId>
+                <version>${simplemagic.version}</version>
+            </dependency>
+
+
+
+
+            <!-- 插件 -->
+            <!-- lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <!-- JSON 解析器和生成器 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <!-- io常用工具类 -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons.io.version}</version>
+            </dependency>
+            <!-- Collection 增强Java集合框架 -->
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>${commons-collections.version}</version>
+            </dependency>
+            <!-- 文件上传工具类 -->
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${commons.fileupload.version}</version>
+            </dependency>
+            <!-- Servlet 容器管理 -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${javax.servlet-api.version}</version>
+            </dependency>
+            <!-- hutool -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+            <!-- easypoi -->
+            <dependency>
+                <groupId>cn.afterturn</groupId>
+                <artifactId>easypoi-spring-boot-starter</artifactId>
+                <version>${easypoi.version}</version>
+            </dependency>
+            <!-- pagehelper 分页插件 -->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper.boot.version}</version>
+            </dependency>
+            <!-- 线程传递值 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>${transmittable-thread-local.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <!-- Ibs Common -->
+            <!-- 核心模块 -->
+            <dependency>
+                <groupId>com.whm</groupId>
+                <artifactId>zhishiku-common-core</artifactId>
+                <version>${whm.core.version}</version>
+            </dependency>
+            <!-- Mybatis模块 -->
+            <dependency>
+                <groupId>com.whm</groupId>
+                <artifactId>zhishiku-common-mybatis</artifactId>
+                <version>${whm.core.version}</version>
+            </dependency>
+            <!-- Swagger模块 -->
+            <dependency>
+                <groupId>com.whm</groupId>
+                <artifactId>zhishiku-common-swagger</artifactId>
+                <version>${whm.core.version}</version>
+            </dependency>
+            <!-- 安全模块 -->
+            <dependency>
+                <groupId>com.whm</groupId>
+                <artifactId>zhishiku-common-security</artifactId>
+                <version>${whm.core.version}</version>
+            </dependency>
+            <!-- 日志模块 -->
+            <dependency>
+                <groupId>com.whm</groupId>
+                <artifactId>zhishiku-common-log</artifactId>
+                <version>${whm.core.version}</version>
+            </dependency>
+            <!-- Redis模块 -->
+            <dependency>
+                <groupId>com.whm</groupId>
+                <artifactId>zhishiku-common-redis</artifactId>
+                <version>${whm.core.version}</version>
+            </dependency>
+            <!-- 分布式任务 -->
+            <dependency>
+                <groupId>com.whm</groupId>
+                <artifactId>zhishiku-common-xxl-job</artifactId>
+                <version>${whm.core.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <finalName>${project.name}</finalName>
+        <!--编译打包过虑配置-->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <!--src/main/java目录下的**/*.xm都会被扫到-->
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <!--责处理项目资源文件并拷贝到输出目录，如果有额外的资源文件目录则需要配置-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <encoding>utf-8</encoding>
+                    <!--使用默认分隔符，resource中可以使用分割符定义过虑的路径-->
+                    <useDefaultDelimiters>true</useDefaultDelimiters>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

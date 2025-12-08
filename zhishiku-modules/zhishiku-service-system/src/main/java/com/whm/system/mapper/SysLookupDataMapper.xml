@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whm.system.mapper.SysLookupDataMapper">
+    <sql id="selectSysLookupDataVo">
+        SELECT
+            id,lookup_sort,lookup_value,lookup_code,lookup_type_id,lookup_type,sta_date,end_date,lookup_tag,is_default,status,create_by,create_name,create_time,update_by,update_name,update_time,remark,deleted,attribute1,attribute2,attribute3,attribute4,attribute5,attribute6,attribute7,attribute8,attribute9,attribute10,attribute11,attribute12,attribute13,attribute14,attribute15,lookup_name
+        FROM sys_lookup_data
+    </sql>
+    <select id="pageQuery" parameterType="com.whm.system.domain.po.SysLookupData" resultType="com.whm.system.domain.po.SysLookupData">
+        <include refid="selectSysLookupDataVo"/>
+        where 1=1
+        <if test="param.id != null and param.id != ''">
+            and id = #{param.id}
+        </if>
+        <if test="param.lookupSort != null and param.lookupSort != ''">
+            and lookup_sort = #{param.lookupSort}
+        </if>
+        <if test="param.lookupValue != null and param.lookupValue != ''">
+            and lookup_value = #{param.lookupValue}
+        </if>
+        <if test="param.lookupCode != null and param.lookupCode != ''">
+            and lookup_code = #{param.lookupCode}
+        </if>
+        <if test="param.lookupTypeId != null and param.lookupTypeId != ''">
+            and lookup_type_id = #{param.lookupTypeId}
+        </if>
+        <if test="param.lookupType != null and param.lookupType != ''">
+            and lookup_type = #{param.lookupType}
+        </if>
+        <if test="param.staDate != null">
+            and sta_date = #{param.staDate}
+        </if>
+        <if test="param.endDate != null">
+            and end_date = #{param.endDate}
+        </if>
+        <if test="param.lookupTag != null and param.lookupTag != ''">
+            and lookup_tag = #{param.lookupTag}
+        </if>
+        <if test="param.isDefault != null and param.isDefault != ''">
+            and is_default = #{param.isDefault}
+        </if>
+        <if test="param.status != null and param.status != ''">
+            and status = #{param.status}
+        </if>
+        <if test="param.createBy != null and param.createBy != ''">
+            and create_by = #{param.createBy}
+        </if>
+        <if test="param.createName != null and param.createName != ''">
+            and create_name = #{param.createName}
+        </if>
+        <if test="param.createTime != null">
+            and create_time = #{param.createTime}
+        </if>
+        <if test="param.updateBy != null and param.updateBy != ''">
+            and update_by = #{param.updateBy}
+        </if>
+        <if test="param.updateName != null and param.updateName != ''">
+            and update_name = #{param.updateName}
+        </if>
+        <if test="param.updateTime != null">
+            and update_time = #{param.updateTime}
+        </if>
+        <if test="param.remark != null and param.remark != ''">
+            and remark = #{param.remark}
+        </if>
+        <if test="param.deleted != null and param.deleted != ''">
+            and deleted = #{param.deleted}
+        </if>
+        <if test="param.attribute1 != null and param.attribute1 != ''">
+            and attribute1 = #{param.attribute1}
+        </if>
+        <if test="param.attribute2 != null and param.attribute2 != ''">
+            and attribute2 = #{param.attribute2}
+        </if>
+        <if test="param.attribute3 != null and param.attribute3 != ''">
+            and attribute3 = #{param.attribute3}
+        </if>
+        <if test="param.attribute4 != null and param.attribute4 != ''">
+            and attribute4 = #{param.attribute4}
+        </if>
+        <if test="param.attribute5 != null and param.attribute5 != ''">
+            and attribute5 = #{param.attribute5}
+        </if>
+        <if test="param.attribute6 != null and param.attribute6 != ''">
+            and attribute6 = #{param.attribute6}
+        </if>
+        <if test="param.attribute7 != null and param.attribute7 != ''">
+            and attribute7 = #{param.attribute7}
+        </if>
+        <if test="param.attribute8 != null and param.attribute8 != ''">
+            and attribute8 = #{param.attribute8}
+        </if>
+        <if test="param.attribute9 != null and param.attribute9 != ''">
+            and attribute9 = #{param.attribute9}
+        </if>
+        <if test="param.attribute10 != null and param.attribute10 != ''">
+            and attribute10 = #{param.attribute10}
+        </if>
+        <if test="param.attribute11 != null and param.attribute11 != ''">
+            and attribute11 = #{param.attribute11}
+        </if>
+        <if test="param.attribute12 != null and param.attribute12 != ''">
+            and attribute12 = #{param.attribute12}
+        </if>
+        <if test="param.attribute13 != null and param.attribute13 != ''">
+            and attribute13 = #{param.attribute13}
+        </if>
+        <if test="param.attribute14 != null and param.attribute14 != ''">
+            and attribute14 = #{param.attribute14}
+        </if>
+        <if test="param.attribute15 != null and param.attribute15 != ''">
+            and attribute15 = #{param.attribute15}
+        </if>
+        <if test="param.lookupName != null and param.lookupName != ''">
+            and lookup_name = #{param.lookupName}
+        </if>
+    </select>
+</mapper>

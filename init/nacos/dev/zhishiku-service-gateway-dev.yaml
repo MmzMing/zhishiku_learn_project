@@ -1,0 +1,33 @@
+spring:
+  cloud:
+    gateway:
+      # 启用服务发现功能。设置为 true 表示启用。
+      discovery:
+        locator:
+          lowerCaseServiceId: true
+          enabled: true
+      routes:
+        # system服务
+        - id: zsk-system
+          uri: lb://zhishiku-service-system
+          predicates:
+            - Path=/system/**
+          # filters:
+          #   - StripPrefix=1
+        # content服务
+        - id: zsk-content
+          uri: lb://zhishiku-service-content
+          predicates:
+            - Path=/content/**
+          # filters:
+          #   - StripPrefix=1
+# 安全配置
+# security:
+#   # 验证码
+#   captcha:
+#     enabled: true
+#     type: math
+#   # 防止XSS攻击
+#   xss:
+#     enabled: true
+#     excludeUrls:
