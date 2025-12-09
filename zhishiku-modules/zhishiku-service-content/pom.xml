@@ -14,11 +14,7 @@
         content-内容管理中心
     </description>
     <dependencies>
-        <!-- Spring Boot 的 Spring Web MVC 集成 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+
         <!-- Swagger UI -->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -45,6 +41,7 @@
         </dependency>
         <!-- Ids Common DataScope -->
         <!-- Ids Common DataSource -->
+        <!-- Spring Boot 的 Spring Web MVC 集成 & swagger -->
         <dependency>
             <groupId>com.whm</groupId>
             <artifactId>zhishiku-common-swagger</artifactId>

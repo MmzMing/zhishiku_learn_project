@@ -3,7 +3,6 @@ package com.whm.media.utils;
 import com.j256.simplemagic.ContentInfo;
 import com.j256.simplemagic.ContentInfoUtil;
 import com.whm.common.core.exception.service.ServiceException;
-import com.whm.common.core.utils.DateUtils;
 import com.whm.common.core.utils.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -70,12 +69,12 @@ public class MinioUtil {
      * @param fileName 文件名
      * @return 随机生成的文件存储路径信息
      */
-    public static FilePathInfo getRandomFilePathByName(String fileName, String fileMd5) {
+    public static FilePathInfo getRandomFilePathByName(String fileName, String filePath, String fileMd5) {
         String extension = getFileExtension(fileName);
         FileType type = FileType.getFileType(extension);
         String pathCategory = FILE_TYPE_PATH_MAP.getOrDefault(type, DEFAULT_PATH);
         // 子目录 + 日期 + 文件的md5值 + 扩展名
-        String fullPath = buildPath(pathCategory, DateUtils.datePath(), fileMd5 + "." + extension);
+        String fullPath = buildPath(pathCategory, filePath, fileMd5 + "." + extension);
         return new FilePathInfo(fullPath, pathCategory);
     }
 
@@ -119,6 +118,16 @@ public class MinioUtil {
             log.error("获取文件MD5值异常", e);
             throw new ServiceException(StringUtils.format("获取文件MD5值异常：{}", e.getMessage()));
         }
+    }
+
+    /**
+     * 根据带有路径的文件，截取最后“/”，获取文件的目录
+     * 例如 /a/b/c.txt，则返回"a/b" , /c.txt返回 ""
+     *
+     * @param objectName 文件的完整路径
+     */
+    public static String getFilePathByObjectName(String objectName) {
+        return Paths.get(objectName).getParent().toString().replace("\\", "/").replaceFirst("^/", "");
     }
 
     /**

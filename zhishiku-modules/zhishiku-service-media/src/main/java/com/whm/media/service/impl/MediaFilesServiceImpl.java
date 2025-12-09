@@ -59,7 +59,7 @@ public class MediaFilesServiceImpl extends ServiceImpl<MediaFilesMapper, MediaFi
      * 上传文件到MinIO服务器
      *
      * @param file       要上传的文件对象
-     * @param objectName 对象名称，校验后变为文件存储路径
+     * @param objectName 自定义存储位置以及名称文件，校验后变为文件存储路径，fileName要他的名字，路径要他的路径
      * @return Boolean 上传是否成功
      */
     @Override
@@ -69,32 +69,26 @@ public class MediaFilesServiceImpl extends ServiceImpl<MediaFilesMapper, MediaFi
 
         if (StringUtils.isEmpty(fileName)) {
             log.error("文件名为空");
-            throw new ServiceException("文件后缀为空");
+            throw new ServiceException("文件名为空");
         }
         String extension = fileName.substring(fileName.lastIndexOf("."));
         String mimeType = MinioUtil.getMimeType(extension);
-        if (StringUtils.isEmpty(objectName)) {
-            //使用默认年月日去存储
-            fileName = StringUtils.isBlank(fileName.substring(0, fileName.lastIndexOf("."))) ? DateUtils.dateTimeNow() + extension : file.getOriginalFilename();
-        } else {
-            //使用自定义名 + 后缀
-            fileName = objectName + extension;
-        }
-        String fileNameMd5 = MinioUtil.getFileMd5(file);
-        //子目录 / 年/月/日 / 文件名的md5值 + 扩展名
-        objectName = MinioUtil.getRandomFilePathByName(fileName, fileNameMd5).getPath();
 
-
+        //文件的md5
+        String fileMd5 = MinioUtil.getFileMd5(file);
+        //(子目录 / 年/月/日 / 文件的md5值 + 扩展名) 或者 (子目录 / 自定义路径 / 文件的md5值 + 扩展名)
+        objectName = StringUtils.isEmpty(objectName)
+                ? MinioUtil.getRandomFilePathByName(fileName, DateUtils.datePath(), fileMd5).getPath()
+                : MinioUtil.getRandomFilePathByName(fileName, objectName, fileMd5).getPath();
         //根据objectName查出文件信息
-        MediaFiles one = lambdaQuery().eq(MediaFiles::getFileId, fileNameMd5).one();
-        MediaFiles mediaFiles = mediaFilesMapper.selectOne(new LambdaQueryWrapper<MediaFiles>().eq(MediaFiles::getFileId, fileNameMd5));
+        MediaFiles one = lambdaQuery().eq(MediaFiles::getFileId, fileMd5).one();
+        MediaFiles mediaFiles = mediaFilesMapper.selectOne(new LambdaQueryWrapper<MediaFiles>().eq(MediaFiles::getFileId, fileMd5));
         //上传文件到minio
         if (ObjectUtils.isEmpty(mediaFiles)) {
             addFilesToMinIo(file, mimeType, minioConfigInfo.getBucket().get("files"), objectName);
         }
         //添加到数据库
-        SpringUtil.getBean(MediaFilesServiceImpl.class)
-                .addMediaFilesToDb(mediaFiles, fileNameMd5, fileName, file.getSize(), minioConfigInfo.getBucket().get("files"), objectName, extension, mimeType);
+        SpringUtil.getBean(MediaFilesServiceImpl.class).addMediaFilesToDb(mediaFiles, fileMd5, fileName, file.getSize(), minioConfigInfo.getBucket().get("files"), objectName, extension, mimeType);
         return true;
     }
 
@@ -300,12 +294,12 @@ public class MediaFilesServiceImpl extends ServiceImpl<MediaFilesMapper, MediaFi
      * 根据本地文件路径上传到MinIO存储服务
      *
      * @param localFilePath 本地文件路径
-     * @param mimeType 文件的媒体类型
-     * @param bucket MinIO存储桶名称
-     * @param objectName 存储对象名称（可包含子目录路径）
+     * @param mimeType      文件的媒体类型
+     * @param bucket        MinIO存储桶名称
+     * @param objectName    存储对象名称（可包含子目录路径）
      * @return 上传成功返回true，失败返回false
      */
-    public void addFilesForPathToMinIo(String localFilePath,String mimeType,String bucket, String objectName){
+    public void addFilesForPathToMinIo(String localFilePath, String mimeType, String bucket, String objectName) {
         try {
             // 构建上传对象参数
             UploadObjectArgs uploadObjectArgs = UploadObjectArgs.builder()

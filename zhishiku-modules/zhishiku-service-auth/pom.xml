@@ -15,10 +15,6 @@
     </description>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
         <!-- Swagger UI -->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -31,6 +27,7 @@
         </dependency>
 
         <!-- Ids Common -->
+        <!-- Spring Boot 的 Spring Web MVC 集成 & swagger -->
         <dependency>
             <groupId>com.whm</groupId>
             <artifactId>zhishiku-common-swagger</artifactId>
