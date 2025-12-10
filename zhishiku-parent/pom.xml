@@ -160,7 +160,6 @@
                 <artifactId>springfox-swagger2</artifactId>
                 <version>${swagger.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>io.swagger</groupId>
                 <artifactId>swagger-annotations</artifactId>
@@ -187,8 +186,6 @@
                 <artifactId>simplemagic</artifactId>
                 <version>${simplemagic.version}</version>
             </dependency>
-
-
 
 
             <!-- 插件 -->
@@ -299,6 +296,12 @@
             <dependency>
                 <groupId>com.whm</groupId>
                 <artifactId>zhishiku-common-xxl-job</artifactId>
+                <version>${whm.core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.whm</groupId>
+                <artifactId>zhishiku-api-media</artifactId>
                 <version>${whm.core.version}</version>
             </dependency>
         </dependencies>

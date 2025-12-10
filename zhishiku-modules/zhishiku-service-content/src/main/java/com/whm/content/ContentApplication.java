@@ -20,7 +20,7 @@ import java.net.UnknownHostException;
  * @author 吴华明
  */
 @Slf4j
-@EnableFeignClients
+@EnableFeignClients(basePackages = "com.whm.*")
 @EnableCustomSwagger2
 @SpringBootApplication
 public class ContentApplication extends SpringBootServletInitializer {

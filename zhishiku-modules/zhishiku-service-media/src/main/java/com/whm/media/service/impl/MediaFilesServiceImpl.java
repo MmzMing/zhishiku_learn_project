@@ -81,8 +81,8 @@ public class MediaFilesServiceImpl extends ServiceImpl<MediaFilesMapper, MediaFi
                 ? MinioUtil.getRandomFilePathByName(fileName, DateUtils.datePath(), fileMd5).getPath()
                 : MinioUtil.getRandomFilePathByName(fileName, objectName, fileMd5).getPath();
         //根据objectName查出文件信息
-        MediaFiles one = lambdaQuery().eq(MediaFiles::getFileId, fileMd5).one();
-        MediaFiles mediaFiles = mediaFilesMapper.selectOne(new LambdaQueryWrapper<MediaFiles>().eq(MediaFiles::getFileId, fileMd5));
+//        MediaFiles mediaFiles = mediaFilesMapper.selectOne(new LambdaQueryWrapper<MediaFiles>().eq(MediaFiles::getFileId, fileMd5));
+        MediaFiles mediaFiles = lambdaQuery().eq(MediaFiles::getFileId, fileMd5).one();
         //上传文件到minio
         if (ObjectUtils.isEmpty(mediaFiles)) {
             addFilesToMinIo(file, mimeType, minioConfigInfo.getBucket().get("files"), objectName);

@@ -8,10 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -42,5 +39,16 @@ public class MediaFilesController {
         return R.ok(mediaFilesService.uploadFile(fileData, objectName));
     }
 
+    /**
+     * 校验文件是否存在
+     *
+     * @param filesMd5 文件md5
+     * @return Boolean
+     */
+    @ApiOperation("校验文件是否存在")
+    @GetMapping("/checkFiles/{filesMd5}")
+    public R<Boolean> checkFiles(@PathVariable("filesMd5") String filesMd5) {
+        return R.ok(mediaFilesService.checkFiles(filesMd5));
+    }
 
 }

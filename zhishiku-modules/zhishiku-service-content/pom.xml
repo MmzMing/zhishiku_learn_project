@@ -50,6 +50,12 @@
             <groupId>com.whm</groupId>
             <artifactId>zhishiku-common-log</artifactId>
         </dependency>
+
+        <!-- 媒体服务 -->
+        <dependency>
+            <groupId>com.whm</groupId>
+            <artifactId>zhishiku-api-media</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
