@@ -31,8 +31,7 @@ public class MybatisPlusConfiguration {
         //分页单页最大条数
         paginationInnerInterceptor.setMaxLimit(5000L);
         interceptor.addInnerInterceptor(paginationInnerInterceptor);
-        // TODO 后面再研究如何添加公共字段
-        //interceptor.addInnerInterceptor(commonFieldInterceptor());
+        interceptor.addInnerInterceptor(commonFieldInterceptor());
         //添加sql日志拦截器
         return interceptor;
     }
@@ -48,6 +47,14 @@ public class MybatisPlusConfiguration {
         return new SqlLogInterceptor();
     }
 
+    /**
+     * 创建并配置公共字段拦截器实例
+     * 
+     * <p>该拦截器用于在执行INSERT和UPDATE操作时自动填充以下公共字段：
+     * create_by、create_name、create_time、update_by、update_name、update_time、deleted
+     *
+     * @return CommonFieldInterceptor 公共字段拦截器实例
+     */
     @Bean
     public CommonFieldInterceptor commonFieldInterceptor() {
         return new CommonFieldInterceptor();

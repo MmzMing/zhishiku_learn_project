@@ -2,7 +2,7 @@ package com.whm.common.core.constant;
 
 
 /**
-* TODO：功能描述
+* Security登录授权信息
 * 
 * @author : 吴华明
 * @since 2025-11-27  19:45

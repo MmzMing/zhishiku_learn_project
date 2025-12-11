@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.plugins.inner.InnerInterceptor;
 import com.whm.common.core.context.SecurityContextHolder;
 import com.whm.common.mybatis.config.IgnoreTableConfig;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.expression.LongValue;
 import net.sf.jsqlparser.expression.StringValue;
@@ -33,18 +34,23 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
- * 创建人信息
+ * 创建人信息 / 修改人信息
  *
  * @author : 吴华明
  * @since 2025-11-27  19:41
  */
+@Slf4j
 public class CommonFieldInterceptor extends JsqlParserSupport implements InnerInterceptor {
 
-    //    @Autowired
+    //@Autowired
     private IgnoreTableConfig ignoreTableConfig;
 
     final static DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+
+    //TODO 加入组织ID 和 组织编码
+    private static final String ORGANIZATION_ID = "organization_id";
+    private static final String ORGANIZATION_CODE = "organization_code";
 
     private static final String CREATE_BY = "create_by";
     private static final String CREATE_NAME = "create_name";
@@ -55,6 +61,22 @@ public class CommonFieldInterceptor extends JsqlParserSupport implements InnerIn
     private static final String DELETED = "deleted";
 
 
+    /**
+     * 在 SQL 预处理之前执行的回调方法，用于拦截 MyBatis 的 StatementHandler，
+     * 对 INSERT 和 UPDATE 类型的 SQL 语句进行自定义处理。
+     *
+     * <p>该方法主要完成以下工作：
+     * <ul>
+     *   <li>判断 SQL 类型是否为 INSERT 或 UPDATE；</li>
+     *   <li>使用 JSqlParser 解析原始 SQL 语句并提取涉及的表名；</li>
+     *   <li>根据配置忽略特定表的操作；</li>
+     *   <li>对符合条件的 SQL 进行进一步解析与改写；</li>
+     * </ul>
+     *
+     * @param sh                 MyBatis 的 StatementHandler 实例，用于获取当前执行的 SQL 相关信息；
+     * @param connection         当前数据库连接对象；
+     * @param transactionTimeout 事务超时时间（单位：秒），可能为 null；
+     */
     @Override
     public void beforePrepare(StatementHandler sh, Connection connection, Integer transactionTimeout) {
         PluginUtils.MPStatementHandler mpSh = PluginUtils.mpStatementHandler(sh);
@@ -72,40 +94,71 @@ public class CommonFieldInterceptor extends JsqlParserSupport implements InnerIn
             try {
                 statement = CCJSqlParserUtil.parse(sql);
             } catch (JSQLParserException e) {
-                // log.error("JsqlParser 解析 SQL 语句异常:", e);
+                log.warn("JsqlParser 解析 SQL 语句异常: {}", sql, e);
                 // 处理解析异常
                 return;
             }
 
             TablesNamesFinder tablesNamesFinder = new TablesNamesFinder();
             List<String> tableNames = tablesNamesFinder.getTableList(statement);
-//            List<String> tables = ignoreTableConfig.getTables();
-            List<String> tables = Arrays.asList("media_files", "media_process_history");
-            // 在这里可以获取到当前 SQL 语句中涉及的表名
-            for (String tableName : tableNames) {
-                if (tables.contains(tableName)) {
-                    return;
-                }
-                //如果是**结尾,则进行模糊匹配
-                if (tables.stream().filter(m -> m.endsWith("**")).anyMatch(m -> tableName.startsWith(StringUtils.removeEnd(m, "**")))) {
-                    return;
-                }
-            }
 
+            // 定义需要忽略处理的表列表
+            List<String> tables = Arrays.asList("sys_log", "sys_log2");
+            // TODO 后面配置忽略表 nacos配置
+            //List<String> tables = ignoreTableConfig.getTables();
+
+            // 判断当前 SQL 中是否存在被忽略的表
+            if (shouldIgnoreTable(tableNames, tables)) {
+                return;
+            }
+            // 对 SQL 进行处理
             PluginUtils.MPBoundSql mpBs = mpSh.mPBoundSql();
             try {
-                // 初始化上下文
+                // 初始化上下文环境
                 ContextHolder.init();
-                // 检查是否需要处理
-                // 处理 SQL
+                // 检查是否需要处理，并对 SQL 做多组织等逻辑处理
                 mpBs.sql(parserMulti(mpBs.sql(), null));
             } finally {
+                // 将已处理的 MappedStatement 加入缓存并清理上下文
                 addMappedStatementCache(ms);
                 ContextHolder.clear();
             }
         }
     }
 
+    /**
+     * 判断是否应该忽略处理指定的表
+     *
+     * @param tableNames    SQL中涉及的表名列表
+     * @param ignoredTables 配置的需要忽略处理的表列表
+     * @return 如果应该忽略处理返回true，否则返回false
+     */
+    private boolean shouldIgnoreTable(List<String> tableNames, List<String> ignoredTables) {
+        for (String tableName : tableNames) {
+            // 精确匹配
+            if (ignoredTables.contains(tableName)) {
+                return true;
+            }
+
+            // 模糊匹配 - 检查是否有以 ** 结尾的模糊匹配规则
+            for (String ignoredTable : ignoredTables) {
+                if (ignoredTable.endsWith("**") && tableName.startsWith(StringUtils.removeEnd(ignoredTable, "**"))) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+        /**
+     * 处理INSERT语句，在插入数据时自动添加创建人、创建时间、更新人、更新时间等公共字段
+     *
+     * @param insert INSERT语句对象
+     * @param index 语句在批处理中的索引位置
+     * @param sql 原始SQL语句
+     * @param obj 相关的对象参数
+     */
     @Override
     protected void processInsert(Insert insert, int index, String sql, Object obj) {
         if (!(insert.getItemsList() instanceof ExpressionList)) {
@@ -116,89 +169,71 @@ public class CommonFieldInterceptor extends JsqlParserSupport implements InnerIn
         // 获取插入语句中的列列表
         List<Column> columns = insert.getColumns();
 
-        Set<String> columnName = new HashSet<>();
-        for (int i = 0; i < columns.size(); i++) {
-            Column column = columns.get(i);
-            if (CREATE_BY.equals(column.getColumnName())) {
-                columnName.add(CREATE_BY);
-            }
-            if (CREATE_NAME.equals(column.getColumnName())) {
-                columnName.add(CREATE_NAME);
-            }
-            if (CREATE_TIME.equals(column.getColumnName())) {
-                columnName.add(CREATE_TIME);
-            }
-            if (UPDATE_BY.equals(column.getColumnName())) {
-                columnName.add(UPDATE_BY);
-            }
-            if (UPDATE_NAME.equals(column.getColumnName())) {
-                columnName.add(UPDATE_NAME);
-            }
-            if (UPDATE_TIME.equals(column.getColumnName())) {
-                columnName.add(UPDATE_TIME);
-            }
-            if (DELETED.equals(column.getColumnName())) {
-                columnName.add(DELETED);
-            }
+        Set<String> existingColumns = new HashSet<>();
+        for (Column column : columns) {
+            existingColumns.add(column.getColumnName());
         }
-
         TimestampValue timestampValue = new TimestampValue(LocalDateTime.now().format(FORMATTER));
-        if (!columnName.contains(CREATE_BY)) {
-            itemsList.addExpressions(new StringValue(getUserName()));
-            insert.addColumns(new Column(null, CREATE_BY));
-        }
 
-        if (!columnName.contains(CREATE_NAME)) {
-            itemsList.addExpressions(new StringValue(getNickName()));
-            insert.addColumns(new Column(null, CREATE_NAME));
-        }
-
-        if (!columnName.contains(CREATE_TIME)) {
-            itemsList.addExpressions(timestampValue);
-            insert.addColumns(new Column(null, CREATE_TIME));
-        }
-
-        if (!columnName.contains(UPDATE_BY)) {
-            itemsList.addExpressions(new StringValue(getUserName()));
-            insert.addColumns(new Column(null, UPDATE_BY));
-        }
-
-        if (!columnName.contains(UPDATE_NAME)) {
-            itemsList.addExpressions(new StringValue(getNickName()));
-            insert.addColumns(new Column(null, UPDATE_NAME));
-        }
-
-        if (!columnName.contains(UPDATE_TIME)) {
-            itemsList.addExpressions(timestampValue);
-            insert.addColumns(new Column(null, UPDATE_TIME));
-        }
-
-        if (!columnName.contains(DELETED)) {
-            itemsList.addExpressions(new LongValue(0));
-            insert.addColumns(new Column(null, DELETED));
-        }
+        // 统一处理所有需要添加的字段，避免重复代码
+        addColumnIfNotExists(existingColumns, itemsList, insert, CREATE_BY, new StringValue(getUserName()));
+        addColumnIfNotExists(existingColumns, itemsList, insert, CREATE_NAME, new StringValue(getNickName()));
+        addColumnIfNotExists(existingColumns, itemsList, insert, CREATE_TIME, timestampValue);
+        addColumnIfNotExists(existingColumns, itemsList, insert, UPDATE_BY, new StringValue(getUserName()));
+        addColumnIfNotExists(existingColumns, itemsList, insert, UPDATE_NAME, new StringValue(getNickName()));
+        addColumnIfNotExists(existingColumns, itemsList, insert, UPDATE_TIME, timestampValue);
+        addColumnIfNotExists(existingColumns, itemsList, insert, DELETED, new LongValue(0));
 
         insert.setItemsList(itemsList);
     }
 
+
+    /**
+     * 如果指定字段不存在于插入语句中，则添加该字段
+     *
+     * @param existingColumns 已存在的字段集合
+     * @param itemsList       表达式列表
+     * @param insert          插入语句对象
+     * @param fieldName       字段名
+     * @param fieldValue      字段值
+     */
+    private void addColumnIfNotExists(Set<String> existingColumns, ExpressionList itemsList, Insert insert, String fieldName, net.sf.jsqlparser.expression.Expression fieldValue) {
+        if (!existingColumns.contains(fieldName)) {
+            itemsList.addExpressions(fieldValue);
+            insert.addColumns(new Column(null, fieldName));
+        }
+    }
+
+    /**
+     * 处理更新语句，在更新数据时自动填充更新人相关信息字段
+     *
+     * <p>该方法会在执行UPDATE语句时自动添加以下字段：
+     * <ul>
+     *   <li>update_by: 更新人ID</li>
+     *   <li>update_name: 更新人姓名</li>
+     *   <li>update_time: 更新时间</li>
+     * </ul>
+     *
+     * @param update 待处理的更新语句对象
+     * @param index  SQL语句索引
+     * @param sql    原始SQL语句
+     * @param obj    方法参数对象
+     */
     @Override
     protected void processUpdate(Update update, int index, String sql, Object obj) {
-
-        Column updateByColumn = new Column(null, UPDATE_BY);
-        ArrayList<UpdateSet> updateSets = update.getUpdateSets();
-        updateSets.add(new UpdateSet(updateByColumn, new StringValue(getUserName())));
-
-        Column updateByColumn2 = new Column(null, UPDATE_NAME);
-        ArrayList<UpdateSet> updateSets2 = update.getUpdateSets();
-        updateSets2.add(new UpdateSet(updateByColumn2, new StringValue(getNickName())));
-
+        // 优化更新语句处理，避免重复获取用户信息和创建UpdateSet对象
+        String userName = getUserName();
+        String nickName = getNickName();
         TimestampValue timestampValue = new TimestampValue(LocalDateTime.now().format(FORMATTER));
 
-        Column updateByColumn3 = new Column(null, UPDATE_TIME);
-        ArrayList<UpdateSet> updateSets3 = update.getUpdateSets();
-        updateSets3.add(new UpdateSet(updateByColumn3, timestampValue));
+        // 批量添加更新字段，减少重复代码
+        List<UpdateSet> additionalUpdates = Arrays.asList(
+                new UpdateSet(new Column(null, UPDATE_BY), new StringValue(userName)),
+                new UpdateSet(new Column(null, UPDATE_NAME), new StringValue(nickName)),
+                new UpdateSet(new Column(null, UPDATE_TIME), timestampValue)
+        );
 
-
+        update.getUpdateSets().addAll(additionalUpdates);
     }
 
     private void addMappedStatementCache(MappedStatement ms) {
@@ -208,12 +243,28 @@ public class CommonFieldInterceptor extends JsqlParserSupport implements InnerIn
     }
 
 
+    /**
+     * 获取当前登录用户的用户名
+     *
+     * @return 返回当前登录用户的用户名，如果未登录则返回空字符串
+     */
     public String getUserName() {
-        return SecurityContextHolder.getUserName();
+        //测试
+        return "admin";
+        //TODO 修改好SecurityContextHolder后再改回来
+        //return SecurityContextHolder.getUserName();
     }
 
+    /**
+     * 获取当前登录用户的昵称
+     *
+     * @return 返回当前登录用户的昵称，如果未登录则返回空字符串
+     */
     public String getNickName() {
-        return SecurityContextHolder.getNickName();
+        //测试
+        return "admin";
+        //TODO 修改好SecurityContextHolder后再改回来
+        //return SecurityContextHolder.getNickName();
     }
 
     public String getUserId() {
