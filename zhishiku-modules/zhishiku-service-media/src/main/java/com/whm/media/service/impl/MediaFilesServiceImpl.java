@@ -340,6 +340,7 @@ public class MediaFilesServiceImpl extends ServiceImpl<MediaFilesMapper, MediaFi
             //组织id，暂时写死
             mediaFiles.setOrganizationId(101L);
             mediaFiles.setOrganizationName("测试组织");
+
             mediaFiles.setFileId(fileMd5);
             mediaFiles.setFileName(fileName);
             mediaFiles.setFilePath(objectName);
@@ -352,15 +353,6 @@ public class MediaFilesServiceImpl extends ServiceImpl<MediaFilesMapper, MediaFi
             mediaFiles.setStatus("1");
             mediaFiles.setAuditStatus("00001");
 
-            //先写死公共字段
-//            mediaFiles.setCreateBy("system");
-//            mediaFiles.setUpdateBy("system");
-//            mediaFiles.setCreateName("system");
-//            mediaFiles.setUpdateName("system");
-//            mediaFiles.setCreateTime(nowDate);
-//            mediaFiles.setUpdateTime(nowDate);
-//            mediaFiles.setDeleted(0);
-
             int insert = mediaFilesMapper.insert(mediaFiles);
             if (insert <= 0) {
                 throw new ServiceException("向数据库保存文件失败");
@@ -371,14 +363,6 @@ public class MediaFilesServiceImpl extends ServiceImpl<MediaFilesMapper, MediaFi
         } else {
             //更新数据库
             mediaFiles.setFileName(fileName);
-            //先写死公共字段
-//            mediaFiles.setCreateBy("system");
-//            mediaFiles.setUpdateBy("system");
-//            mediaFiles.setCreateName("system");
-//            mediaFiles.setUpdateName("system");
-//            mediaFiles.setCreateTime(nowDate);
-//            mediaFiles.setUpdateTime(nowDate);
-//            mediaFiles.setDeleted(0);
             int update = mediaFilesMapper.update(mediaFiles, new LambdaUpdateWrapper<MediaFiles>().eq(MediaFiles::getFileId, fileMd5));
             if (update <= 0) {
                 throw new ServiceException("向数据库更新文件失败");
