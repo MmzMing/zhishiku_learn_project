@@ -1,10 +1,10 @@
 package com.whm.media.service.impl;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.conditions.update.LambdaUpdateChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.whm.common.core.utils.CollectionUtils;
 import com.whm.common.core.utils.StringUtils;
 import com.whm.common.mybatis.page.PageQuery;
 import com.whm.common.mybatis.page.TableDataInfo;
@@ -72,7 +72,8 @@ public class MediaProcessServiceImpl extends ServiceImpl<MediaProcessMapper, Med
         int processors = Runtime.getRuntime().availableProcessors();
         //查数据
         List<MediaProcess> mediaProcessList = mediaProcessListByTotal(index, total, processors);
-        if (CollectionUtils.isAnyEmpty(mediaProcessList))
+
+        if (CollectionUtil.isEmpty(mediaProcessList))
             return;
         int size = mediaProcessList.size();
         //使用的计数器

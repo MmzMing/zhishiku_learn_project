@@ -1,11 +1,12 @@
 package com.whm.media.service.impl;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.whm.common.core.constant.DateConstant;
 import com.whm.common.core.exception.service.ServiceException;
-import com.whm.common.core.utils.DateUtils;
 import com.whm.media.config.MinioConfigInfo;
 import com.whm.media.domain.po.MediaFiles;
 import com.whm.media.domain.po.MediaProcess;
@@ -78,7 +79,7 @@ public class MediaFilesServiceImpl extends ServiceImpl<MediaFilesMapper, MediaFi
         String fileMd5 = MinioUtil.getFileMd5(file);
         //(子目录 / 年/月/日 / 文件的md5值 + 扩展名) 或者 (子目录 / 自定义路径 / 文件的md5值 + 扩展名)
         objectName = StringUtils.isEmpty(objectName)
-                ? MinioUtil.getRandomFilePathByName(fileName, DateUtils.datePath(), fileMd5).getPath()
+                ? MinioUtil.getRandomFilePathByName(fileName, DateUtil.format(LocalDateTime.now(), DateConstant.DATE_PATH), fileMd5).getPath()
                 : MinioUtil.getRandomFilePathByName(fileName, objectName, fileMd5).getPath();
         //根据objectName查出文件信息
 //        MediaFiles mediaFiles = mediaFilesMapper.selectOne(new LambdaQueryWrapper<MediaFiles>().eq(MediaFiles::getFileId, fileMd5));
@@ -283,9 +284,9 @@ public class MediaFilesServiceImpl extends ServiceImpl<MediaFilesMapper, MediaFi
                             .stream(inputStream, inputStream.available(), -1)
                             .contentType(mimeType)
                             .build());
-            log.info("上传文件到minio成功,bucket:{},objectName:{}", bucket, objectName);
+            log.info("上传文件流到minio成功,bucket:{},objectName:{}", bucket, objectName);
         } catch (Exception e) {
-            log.error("上传文件出错,bucket:{},objectName:{},错误信息:{}", bucket, objectName, e.getMessage(), e);
+            log.error("上传文件流出错,bucket:{},objectName:{},错误信息:{}", bucket, objectName, e.getMessage(), e);
             throw new ServiceException("上传文件时发生错误");
         }
     }
@@ -297,7 +298,6 @@ public class MediaFilesServiceImpl extends ServiceImpl<MediaFilesMapper, MediaFi
      * @param mimeType      文件的媒体类型
      * @param bucket        MinIO存储桶名称
      * @param objectName    存储对象名称（可包含子目录路径）
-     * @return 上传成功返回true，失败返回false
      */
     public void addFilesForPathToMinIo(String localFilePath, String mimeType, String bucket, String objectName) {
         try {
