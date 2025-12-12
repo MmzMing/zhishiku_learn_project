@@ -16,7 +16,7 @@ import reactor.core.publisher.Mono;
 import java.io.IOException;
 
 /**
- * TODO：功能描述
+ * 验证码 处理
  *
  * @author : 吴华明
  * @since 2025-12-12  19:36
@@ -26,14 +26,24 @@ public class ValidateCodeHandler implements HandlerFunction<ServerResponse> {
     @Autowired
     private ValidateCodeService validateCodeService;
 
+    /**
+     * 处理服务器请求，生成验证码并返回响应结果
+     *
+     * @param serverRequest 服务器请求对象，包含客户端请求信息
+     * @return Mono<ServerResponse> 包含验证码信息的服务器响应对象
+     */
     @Override
     public Mono<ServerResponse> handle(ServerRequest serverRequest) {
         AjaxResult ajax;
         try {
+            // 生成验证码
             ajax = validateCodeService.createCaptcha();
         } catch (CaptchaException | IOException e) {
+            // 验证码生成异常时返回错误信息
             return Mono.error(e);
         }
+        // 构造成功响应，返回验证码数据
         return ServerResponse.status(HttpStatus.OK).body(BodyInserters.fromValue(ajax));
     }
+
 }

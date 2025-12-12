@@ -49,11 +49,10 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
      * 生成验证码
      *
      * @return 验证码信息
-     * @throws IOException      IO异常
      * @throws CaptchaException 验证码异常
      */
     @Override
-    public AjaxResult createCaptcha() throws IOException, CaptchaException {
+    public AjaxResult createCaptcha() throws CaptchaException {
         AjaxResult ajax = AjaxResult.success();
         boolean captchaOnOff = captchaConfigInfo.getEnabled();
         ajax.put("captchaOnOff", captchaOnOff);
@@ -64,9 +63,8 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
         // 保存验证码信息
         String uuid = UUID.fastUUID().toString(true);
         String verifyKey = TokenConstants.CAPTCHA_CODE_KEY + uuid;
-
-        String capStr = null, code = null;
-        BufferedImage image = null;
+        String capStr, code;
+        BufferedImage image;
 
         String captchaType = captchaConfigInfo.getType();
         // 生成验证码 并且 验证码图片转Base64
@@ -104,23 +102,18 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
     @Override
     public void checkCaptcha(String code, String uuid) throws CaptchaException {
         if (StringUtils.isEmpty(code)) {
-            throw new CaptchaException(GatewayErrorCodeEnum.AUTH_TOKEN_MISSING.getErrorMsg());
+            throw new CaptchaException(GatewayErrorCodeEnum.AUTH_LOGIN_CAPTCHA_MISSING.getErrorMsg());
         }
         if (StringUtils.isEmpty(uuid)) {
-            throw new CaptchaException(GatewayErrorCodeEnum.AUTH_TOKEN_EXPIRED.getErrorMsg());
+            throw new CaptchaException(GatewayErrorCodeEnum.AUTH_LOGIN_CAPTCHA_EXPIRED.getErrorMsg());
         }
         String verifyKey = TokenConstants.CAPTCHA_CODE_KEY + uuid;
         String captcha = redisService.getCacheObject(verifyKey);
 
         // 立即删除验证码，防止重复使用
         redisService.deleteObject(verifyKey);
-
-        if (StringUtils.isEmpty(captcha)) {
-            throw new CaptchaException(GatewayErrorCodeEnum.AUTH_TOKEN_EXPIRED.getErrorMsg());
-        }
-
-        if (!code.equalsIgnoreCase(captcha)) {
-            throw new CaptchaException(GatewayErrorCodeEnum.AUTH_TOKEN_INVALID.getErrorMsg());
+        if (StringUtils.isEmpty(captcha) || !code.equalsIgnoreCase(captcha)) {
+            throw new CaptchaException(GatewayErrorCodeEnum.AUTH_LOGIN_CAPTCHA_ERROR.getErrorMsg());
         }
     }
 }

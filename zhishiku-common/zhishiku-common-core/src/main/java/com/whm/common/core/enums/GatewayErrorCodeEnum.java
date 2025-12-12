@@ -33,6 +33,10 @@ public enum GatewayErrorCodeEnum {
     AUTH_TOKEN_BLACK_FOUND(401, "401005", "Token已被拉黑，请联系管理员"),
     AUTH_LOGIN_EXPIRED(401, "401006", "登录状态已过期，请重新登录"),
 
+    AUTH_LOGIN_CAPTCHA_ERROR(401, "401007", "验证码错误，请重新输入"),
+    AUTH_LOGIN_CAPTCHA_MISSING(401, "401008", "验证码不能为空，请输入验证码"),
+    AUTH_LOGIN_CAPTCHA_EXPIRED(401, "401009", "验证码已过期，请重新获取"),
+
     // ======================== 403xxx - 授权/权限错误 ========================
     AUTH_NO_PERMISSION(403, "403001", "当前账号无此接口访问权限，请联系管理员进行授权"),
     AUTH_IP_LIMIT(403, "403002", "当前IP地址不在访问白名单内，请联系管理员添加白名单"),

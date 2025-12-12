@@ -21,16 +21,7 @@ public class SentinelFallbackHandler implements WebExceptionHandler {
         return ServletUtils.webFluxResponseWriter(exchange.getResponse(), "请求超过最大数，请稍候再试");
     }
 
-    /**
-     * 该方法是 WebExceptionHandler 接口的实现，用于处理异常。
-     * 首先检查响应是否已经提交，如果是则返回异常。
-     * 然后检查异常是否为 BlockException，如果不是则返回异常。
-     * 如果是 BlockException，则调用 handleBlockedRequest 方法处理限流请求，并将响应写回客户端
-     *
-     * @param exchange 请求
-     * @param ex 异常
-     * @return 响应
-     */
+
     @Override
     public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
         if (exchange.getResponse().isCommitted()) {

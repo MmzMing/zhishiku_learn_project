@@ -11,7 +11,7 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 
 /**
- * TODO：功能描述
+ * 函数式路由配置（验证码接口）
  *
  * @author : 吴华明
  * @since 2025-12-12  19:35
@@ -20,7 +20,9 @@ import org.springframework.web.reactive.function.server.RouterFunctions;
 public class RouterFunctionConfiguration {
     @Autowired
     private ValidateCodeHandler validateCodeHandler;
-
+    /**
+     * 验证码生成接口路由
+     */
     @SuppressWarnings("rawtypes")
     @Bean
     public RouterFunction routerFunction() {

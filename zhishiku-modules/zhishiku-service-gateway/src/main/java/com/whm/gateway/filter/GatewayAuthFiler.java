@@ -42,6 +42,13 @@ public class GatewayAuthFiler implements GlobalFilter, Ordered {
     private RedisService redisService;
 
 
+        /**
+     * 网关过滤器方法，用于验证请求的token并设置用户信息
+     *
+     * @param exchange ServerWebExchange对象，包含HTTP请求和响应信息
+     * @param chain GatewayFilterChain对象，用于继续执行过滤器链
+     * @return Mono<Void> 异步返回结果
+     */
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
@@ -60,9 +67,9 @@ public class GatewayAuthFiler implements GlobalFilter, Ordered {
         if (claims == null) {
             return unauthorizedResponse(exchange, GatewayErrorCodeEnum.AUTH_TOKEN_EXPIRED.getErrorMsg());
         }
-        String userkey = JwtUtils.getUserKey(claims);
-        boolean islogin = redisService.hasKey(getTokenKey(userkey));
-        if (!islogin) {
+        String userKey = JwtUtils.getUserKey(claims);
+        boolean isLogin = redisService.hasKey(getTokenKey(userKey));
+        if (!isLogin) {
             return unauthorizedResponse(exchange, GatewayErrorCodeEnum.AUTH_LOGIN_EXPIRED.getErrorMsg());
         }
         String userid = JwtUtils.getUserId(claims);
@@ -72,13 +79,14 @@ public class GatewayAuthFiler implements GlobalFilter, Ordered {
         }
 
         // 设置用户信息到请求
-        addHeader(mutate, SecurityConstants.USER_KEY, userkey);
+        addHeader(mutate, SecurityConstants.USER_KEY, userKey);
         addHeader(mutate, SecurityConstants.DETAILS_USER_ID, userid);
         addHeader(mutate, SecurityConstants.DETAILS_USERNAME, username);
         // 内部请求来源参数清除
         removeHeader(mutate, SecurityConstants.FROM_SOURCE);
         return chain.filter(exchange.mutate().request(mutate.build()).build());
     }
+
 
     private void addHeader(ServerHttpRequest.Builder mutate, String name, Object value) {
         if (value == null) {
