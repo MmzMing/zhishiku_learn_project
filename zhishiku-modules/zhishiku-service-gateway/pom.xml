@@ -27,17 +27,20 @@
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-datasource-nacos</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>-->
-<!--        </dependency>-->
+
         <!-- SpringCloud Loadbalancer 负载均衡器模块-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-loadbalancer</artifactId>
         </dependency>
+        <!-- 验证码 -->
+        <dependency>
+            <groupId>com.github.penggle</groupId>
+            <artifactId>kaptcha</artifactId>
+        </dependency>
 
-        <!-- Ids Common Redis-->
+        <!-- Ids Common -->
+        <!-- Spring Boot 的 Spring Web MVC 集成 & swagger -->
         <dependency>
             <groupId>com.whm</groupId>
             <artifactId>zhishiku-common-redis</artifactId>
@@ -52,7 +55,6 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
         </dependency>
-
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>

@@ -85,4 +85,13 @@ public class Constants {
      */
     public static final String HTTPS = "https://";
 
+    /**
+     * code
+     */
+    public static final String CODE = "code";
+
+    /**
+     * UUID
+     */
+    public static final String UUID = "uuid";
 }

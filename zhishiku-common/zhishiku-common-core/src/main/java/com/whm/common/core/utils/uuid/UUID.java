@@ -444,3 +444,4 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
         return ThreadLocalRandom.current();
     }
 }
+

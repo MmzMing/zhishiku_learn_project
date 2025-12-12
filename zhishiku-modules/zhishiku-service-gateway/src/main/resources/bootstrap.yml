@@ -1,5 +1,7 @@
 # Tomcat
 server:
+  servlet:
+    context-path: /gateway
   port: 30000
 # Spring
 spring:
@@ -7,6 +9,11 @@ spring:
     name: zhishiku-service-gateway
   profiles:
     active: dev
+  main:
+    # 临时允许循环依赖（按需开启，非必需）
+    allow-circular-references: true
+    # 临时允许 Bean 覆盖（按需开启，非必需）
+    allow-bean-definition-overriding: true
   cloud:
     nacos:
       #配置文件相关配置
@@ -24,24 +31,21 @@ spring:
       #服务注册相关配置
       discovery:
         group: ${spring.profiles.active}
-    sentinel:
+  sentinel:
     # 取消控制台懒加载
-      eager: true
-      transport:
+    eager: true
+    transport:
       # 控制台地址
-        dashboard: ${sentinel.dashboard-addr}
+      dashboard: ${sentinel.dashboard-addr}
     # nacos配置持久化
-      datasource:
-        ds1:
-          nacos:
-            server-addr: ${spring.cloud.nacos.server-addr}
-            data-id: sentinel-zhishiku-gateway
-            group-id: zhishiku-cloud
-            data-type: json
-            rule-type: flow
-#      ds2:
-#        nacos:
-#          server-addr: ${spring.cloud.nacos.server-addr}
-#          data-id: ${spring.application.name}-sentinel-degrade
-#          group-id: DEFAULT_GROUP
-#          rule-type: degrade
+    datasource:
+      ds1:
+        nacos:
+          # username: service
+          # password: pos20211230
+          server-addr: ${spring.cloud.nacos.server-addr}  # 现在能正确引用了
+          namespace: ${spring.cloud.nacos.namespace}  # 补充命名空间（关键）
+          dataId: sentinel-zhishiku-gateway
+          groupId: dev
+          data-type: json
+          rule-type: flow

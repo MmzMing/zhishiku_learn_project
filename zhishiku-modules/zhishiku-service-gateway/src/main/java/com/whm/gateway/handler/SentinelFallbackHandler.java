@@ -27,9 +27,9 @@ public class SentinelFallbackHandler implements WebExceptionHandler {
      * 然后检查异常是否为 BlockException，如果不是则返回异常。
      * 如果是 BlockException，则调用 handleBlockedRequest 方法处理限流请求，并将响应写回客户端
      *
-     * @param exchange
-     * @param ex
-     * @return
+     * @param exchange 请求
+     * @param ex 异常
+     * @return 响应
      */
     @Override
     public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {

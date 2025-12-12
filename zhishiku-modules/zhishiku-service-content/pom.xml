@@ -39,7 +39,7 @@
             <groupId>com.whm</groupId>
             <artifactId>zhishiku-common-mybatis</artifactId>
         </dependency>
-        <!-- Ids Common DataScope -->
+
         <!-- Ids Common DataSource -->
         <!-- Spring Boot 的 Spring Web MVC 集成 & swagger -->
         <dependency>

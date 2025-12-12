@@ -1,10 +1,9 @@
 package com.whm.gateway.handler;
 
 
+import com.whm.common.core.enums.GatewayErrorCodeEnum;
 import com.whm.common.core.utils.ServletUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.cloud.gateway.support.NotFoundException;
 import org.springframework.context.annotation.Configuration;
@@ -25,26 +24,16 @@ import reactor.core.publisher.Mono;
 @Configuration
 public class GatewayExceptionHandler implements ErrorWebExceptionHandler {
 
-    /**
-     * 主要功能
-     * 捕获异常：捕获网关中的所有异常。
-     * 分类处理：根据异常类型返回不同的错误信息。
-     * 日志记录：记录异常信息和请求路径。
-     * 响应客户端：将错误信息写回客户端。
-     *
-     * @param exchange
-     * @param ex
-     * @return
-     */
     @Override
     public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
         ServerHttpResponse response = exchange.getResponse();
+
         if (exchange.getResponse().isCommitted()) {
             return Mono.error(ex);
         }
         String msg;
         if (ex instanceof NotFoundException) {
-            msg = "服务未找到";
+            msg = GatewayErrorCodeEnum.SERVICE_NOT_FOUND.getErrorMsg();
         } else if (ex instanceof ResponseStatusException) {
             ResponseStatusException responseStatusException = (ResponseStatusException) ex;
             msg = responseStatusException.getMessage();
