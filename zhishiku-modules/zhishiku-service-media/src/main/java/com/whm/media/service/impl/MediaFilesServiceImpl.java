@@ -337,9 +337,8 @@ public class MediaFilesServiceImpl extends ServiceImpl<MediaFilesMapper, MediaFi
         LocalDateTime nowDate = LocalDateTime.now();
         if (ObjectUtils.isEmpty(mediaFiles)) {
             mediaFiles = new MediaFiles();
-            //组织id，暂时写死
-            mediaFiles.setOrganizationId(101L);
-            mediaFiles.setOrganizationName("测试组织");
+            //TenantId，暂时写死
+            mediaFiles.setTenantId("10001");
 
             mediaFiles.setFileId(fileMd5);
             mediaFiles.setFileName(fileName);

@@ -106,22 +106,3 @@ zhishiku_learn_project
 - `bootstrap-prod.yml` - 生产环境配置
 
 ## 六、快速启动
-
-1. **启动基础设施**
-   ```bash
-   docker-compose -f docker-compose.env.yml up -d
-   ```
-
-2. **导入Nacos配置**
-   - 将 `init/nacos/dev/` 下的配置导入Nacos
-
-3. **初始化数据库**
-   ```bash
-   mysql -u root -p < init/sql/zsk.sql
-   ```
-
-4. **启动服务**（按顺序）
-   - Gateway (30000)
-   - Auth (30010)
-   - System (30030)
-   - 其他业务服务

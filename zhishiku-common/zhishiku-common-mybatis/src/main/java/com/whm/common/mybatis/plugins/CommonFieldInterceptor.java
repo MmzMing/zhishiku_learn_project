@@ -47,11 +47,6 @@ public class CommonFieldInterceptor extends JsqlParserSupport implements InnerIn
 
     final static DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-
-    //TODO 加入组织ID 和 组织编码
-    private static final String ORGANIZATION_ID = "organization_id";
-    private static final String ORGANIZATION_CODE = "organization_code";
-
     private static final String CREATE_BY = "create_by";
     private static final String CREATE_NAME = "create_name";
     private static final String CREATE_TIME = "create_time";
@@ -103,7 +98,7 @@ public class CommonFieldInterceptor extends JsqlParserSupport implements InnerIn
             List<String> tableNames = tablesNamesFinder.getTableList(statement);
 
             // 定义需要忽略处理的表列表
-            List<String> tables = Arrays.asList("sys_log", "sys_log2");
+            List<String> tables = Arrays.asList("sys_user_role", "sys_oper_log","sys_login_infor");
             // TODO 后面配置忽略表 nacos配置
             //List<String> tables = ignoreTableConfig.getTables();
 

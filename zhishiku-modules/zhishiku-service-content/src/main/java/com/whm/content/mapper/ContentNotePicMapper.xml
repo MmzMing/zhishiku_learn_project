@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whm.content.mapper.ContentNotePicMapper">
+    <sql id="selectContentNotePicVo">
+        SELECT
+            id,note_id,pic_url,sort,create_by,create_name,create_time,update_by,update_name,update_time,deleted
+        FROM content_note_pic
+    </sql>
+    <select id="pageQuery" parameterType="com.whm.content.domain.po.ContentNotePic" resultType="com.whm.content.domain.po.ContentNotePic">
+        <include refid="selectContentNotePicVo"/>
+        where 1=1
+        <if test="param.id != null and param.id != ''">
+            and id = #{param.id}
+        </if>
+        <if test="param.noteId != null and param.noteId != ''">
+            and note_id = #{param.noteId}
+        </if>
+        <if test="param.picUrl != null and param.picUrl != ''">
+            and pic_url = #{param.picUrl}
+        </if>
+        <if test="param.sort != null and param.sort != ''">
+            and sort = #{param.sort}
+        </if>
+        <if test="param.createBy != null and param.createBy != ''">
+            and create_by = #{param.createBy}
+        </if>
+        <if test="param.createName != null and param.createName != ''">
+            and create_name = #{param.createName}
+        </if>
+        <if test="param.createTime != null">
+            and create_time = #{param.createTime}
+        </if>
+        <if test="param.updateBy != null and param.updateBy != ''">
+            and update_by = #{param.updateBy}
+        </if>
+        <if test="param.updateName != null and param.updateName != ''">
+            and update_name = #{param.updateName}
+        </if>
+        <if test="param.updateTime != null">
+            and update_time = #{param.updateTime}
+        </if>
+        <if test="param.deleted != null and param.deleted != ''">
+            and deleted = #{param.deleted}
+        </if>
+    </select>
+</mapper>

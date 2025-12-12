@@ -12,7 +12,7 @@ import java.util.List;
  * minio上传信息 表服务接口
  *
  * @author : 吴华明
- * @date : 2025-09-18 15:16:43
+ * @since : 2025-09-18 15:16:43
  */
 public interface MediaProcessService extends IService<MediaProcess> {
 
@@ -36,13 +36,7 @@ public interface MediaProcessService extends IService<MediaProcess> {
      * @return void
      */
     void updateMediaProcessStatus(Long taskId, String status, String fileId, String url, String errorMsg);
-    /**
-     * 通过ID查询单条数据
-     *
-     * @param id 主键
-     * @return 实例对象
-     */
-    MediaProcess queryById(long id);
+
 
     /**
      * 分页查询
@@ -53,27 +47,4 @@ public interface MediaProcessService extends IService<MediaProcess> {
      */
     TableDataInfo<MediaProcess> pageQuery(MediaProcess mediaProcess, PageQuery pageQuery);
 
-    /**
-     * 新增数据
-     *
-     * @param mediaProcess 实例对象
-     * @return 实例对象
-     */
-    MediaProcess insert(MediaProcess mediaProcess);
-
-    /**
-     * 更新数据
-     *
-     * @param mediaProcess 实例对象
-     * @return 实例对象
-     */
-    MediaProcess update(MediaProcess mediaProcess);
-
-    /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 是否成功
-     */
-    boolean deleteById(long id);
 }

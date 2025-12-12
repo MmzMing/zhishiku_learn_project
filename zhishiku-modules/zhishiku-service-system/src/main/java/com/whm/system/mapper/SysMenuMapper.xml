@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whm.system.mapper.SysMenuMapper">
+    <sql id="selectSysMenuVo">
+        SELECT
+            id,menu_name,parent_id,order_num,path,component,query,frame,cache,menu_type,visible,status,perms,icon,remark,create_by,create_name,create_time,update_by,update_name,update_time,deleted
+        FROM sys_menu
+    </sql>
+    <select id="pageQuery" parameterType="com.whm.system.domain.po.SysMenu" resultType="com.whm.system.domain.po.SysMenu">
+        <include refid="selectSysMenuVo"/>
+        where 1=1
+        <if test="param.id != null and param.id != ''">
+            and id = #{param.id}
+        </if>
+        <if test="param.menuName != null and param.menuName != ''">
+            and menu_name = #{param.menuName}
+        </if>
+        <if test="param.parentId != null and param.parentId != ''">
+            and parent_id = #{param.parentId}
+        </if>
+        <if test="param.orderNum != null and param.orderNum != ''">
+            and order_num = #{param.orderNum}
+        </if>
+        <if test="param.path != null and param.path != ''">
+            and path = #{param.path}
+        </if>
+        <if test="param.component != null and param.component != ''">
+            and component = #{param.component}
+        </if>
+        <if test="param.query != null and param.query != ''">
+            and query = #{param.query}
+        </if>
+        <if test="param.frame != null and param.frame != ''">
+            and frame = #{param.frame}
+        </if>
+        <if test="param.cache != null and param.cache != ''">
+            and cache = #{param.cache}
+        </if>
+        <if test="param.menuType != null and param.menuType != ''">
+            and menu_type = #{param.menuType}
+        </if>
+        <if test="param.visible != null and param.visible != ''">
+            and visible = #{param.visible}
+        </if>
+        <if test="param.status != null and param.status != ''">
+            and status = #{param.status}
+        </if>
+        <if test="param.perms != null and param.perms != ''">
+            and perms = #{param.perms}
+        </if>
+        <if test="param.icon != null and param.icon != ''">
+            and icon = #{param.icon}
+        </if>
+        <if test="param.remark != null and param.remark != ''">
+            and remark = #{param.remark}
+        </if>
+        <if test="param.createBy != null and param.createBy != ''">
+            and create_by = #{param.createBy}
+        </if>
+        <if test="param.createName != null and param.createName != ''">
+            and create_name = #{param.createName}
+        </if>
+        <if test="param.createTime != null and param.createTime != ''">
+            and create_time = #{param.createTime}
+        </if>
+        <if test="param.updateBy != null and param.updateBy != ''">
+            and update_by = #{param.updateBy}
+        </if>
+        <if test="param.updateName != null and param.updateName != ''">
+            and update_name = #{param.updateName}
+        </if>
+        <if test="param.updateTime != null and param.updateTime != ''">
+            and update_time = #{param.updateTime}
+        </if>
+        <if test="param.deleted != null and param.deleted != ''">
+            and deleted = #{param.deleted}
+        </if>
+    </select>
+</mapper>

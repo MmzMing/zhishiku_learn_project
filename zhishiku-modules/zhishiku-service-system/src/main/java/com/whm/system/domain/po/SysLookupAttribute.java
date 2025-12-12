@@ -8,49 +8,49 @@ import lombok.Data;
 
 
 /**
- * 快码属性设置;
+ * 系统服务_快码属性设置表
  *
  * @author ：吴华明
- * @date : 2025-09-09 11:46:28
+ * @since : 2025-12-12 13:57:52
  */
 @Data
-@TableName("sysLookupAttribute")
-@ApiModel(value = "SysLookupAttribute对象", description = "快码属性设置")
+@TableName("sys_lookup_attribute")
+@ApiModel(value = "sys_lookup_attribute对象", description = "系统服务_快码属性设置表")
 public class SysLookupAttribute extends BaseDomain {
 
     /**
-     * 快码类型id
+     * 快码id
      */
-    @ApiModelProperty("快码类型id")
-    private Long lookupTypeId;
+    @ApiModelProperty("快码id")
+    private Long lookupDataId ;
     /**
-     * 表字段
+     * 字段编码
      */
-    @ApiModelProperty("表字段")
-    private String tblValue;
+    @ApiModelProperty("字段编码")
+    private String tblCode ;
     /**
      * 字段属性
      */
     @ApiModelProperty("字段属性")
-    private String tblAttribute;
+    private String tblValue ;
     /**
      * 标签名称
      */
     @ApiModelProperty("标签名称")
-    private String label;
+    private String tagName ;
     /**
      * 是否必填（0必填  1非必填）
      */
     @ApiModelProperty("是否必填（0必填  1非必填）")
-    private String requireFlag;
+    private String requireFlag ;
     /**
      * 状态（0正常  1停用）
      */
     @ApiModelProperty("状态（0正常  1停用）")
-    private String status;
+    private String status ;
     /**
      * 备注
      */
     @ApiModelProperty("备注")
-    private String remark;
+    private String remark ;
 }

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whm.content.mapper.ContentNoteCommentMapper">
+    <sql id="selectContentNoteCommentVo">
+        SELECT
+            id,note_id,comment_user_id,comment_content,parent_comment_id,audit_status,status,like_count,version,create_by,create_name,create_time,update_by,update_name,update_time,deleted
+        FROM content_note_comment
+    </sql>
+    <select id="pageQuery" parameterType="com.whm.content.domain.po.ContentNoteComment" resultType="com.whm.content.domain.po.ContentNoteComment">
+        <include refid="selectContentNoteCommentVo"/>
+        where 1=1
+        <if test="param.id != null and param.id != ''">
+            and id = #{param.id}
+        </if>
+        <if test="param.noteId != null and param.noteId != ''">
+            and note_id = #{param.noteId}
+        </if>
+        <if test="param.commentUserId != null and param.commentUserId != ''">
+            and comment_user_id = #{param.commentUserId}
+        </if>
+        <if test="param.commentContent != null and param.commentContent != ''">
+            and comment_content = #{param.commentContent}
+        </if>
+        <if test="param.parentCommentId != null and param.parentCommentId != ''">
+            and parent_comment_id = #{param.parentCommentId}
+        </if>
+        <if test="param.auditStatus != null and param.auditStatus != ''">
+            and audit_status = #{param.auditStatus}
+        </if>
+        <if test="param.status != null and param.status != ''">
+            and status = #{param.status}
+        </if>
+        <if test="param.likeCount != null and param.likeCount != ''">
+            and like_count = #{param.likeCount}
+        </if>
+        <if test="param.version != null and param.version != ''">
+            and version = #{param.version}
+        </if>
+        <if test="param.createBy != null and param.createBy != ''">
+            and create_by = #{param.createBy}
+        </if>
+        <if test="param.createName != null and param.createName != ''">
+            and create_name = #{param.createName}
+        </if>
+        <if test="param.createTime != null">
+            and create_time = #{param.createTime}
+        </if>
+        <if test="param.updateBy != null and param.updateBy != ''">
+            and update_by = #{param.updateBy}
+        </if>
+        <if test="param.updateName != null and param.updateName != ''">
+            and update_name = #{param.updateName}
+        </if>
+        <if test="param.updateTime != null">
+            and update_time = #{param.updateTime}
+        </if>
+        <if test="param.deleted != null and param.deleted != ''">
+            and deleted = #{param.deleted}
+        </if>
+    </select>
+</mapper>

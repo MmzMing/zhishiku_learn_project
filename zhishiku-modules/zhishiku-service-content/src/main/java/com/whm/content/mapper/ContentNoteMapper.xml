@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whm.content.mapper.ContentNoteMapper">
+    <sql id="selectContentNoteVo">
+        SELECT
+            id,user_id,tenant_id,note_name,note_tags,description,broad_code,narrow_code,note_grade,note_mode,suitable_users,audit_status,status,publish_time,view_count,like_count,version,remark,create_by,create_name,create_time,update_by,update_name,update_time,deleted
+        FROM content_note
+    </sql>
+    <select id="pageQuery" parameterType="com.whm.content.domain.po.ContentNote" resultType="com.whm.content.domain.po.ContentNote">
+        <include refid="selectContentNoteVo"/>
+        where 1=1
+        <if test="param.id != null and param.id != ''">
+            and id = #{param.id}
+        </if>
+        <if test="param.userId != null and param.userId != ''">
+            and user_id = #{param.userId}
+        </if>
+        <if test="param.tenantId != null and param.tenantId != ''">
+            and tenant_id = #{param.tenantId}
+        </if>
+        <if test="param.noteName != null and param.noteName != ''">
+            and note_name = #{param.noteName}
+        </if>
+        <if test="param.noteTags != null and param.noteTags != ''">
+            and note_tags = #{param.noteTags}
+        </if>
+        <if test="param.description != null and param.description != ''">
+            and description = #{param.description}
+        </if>
+        <if test="param.broadCode != null and param.broadCode != ''">
+            and broad_code = #{param.broadCode}
+        </if>
+        <if test="param.narrowCode != null and param.narrowCode != ''">
+            and narrow_code = #{param.narrowCode}
+        </if>
+        <if test="param.noteGrade != null and param.noteGrade != ''">
+            and note_grade = #{param.noteGrade}
+        </if>
+        <if test="param.noteMode != null and param.noteMode != ''">
+            and note_mode = #{param.noteMode}
+        </if>
+        <if test="param.suitableUsers != null and param.suitableUsers != ''">
+            and suitable_users = #{param.suitableUsers}
+        </if>
+        <if test="param.auditStatus != null and param.auditStatus != ''">
+            and audit_status = #{param.auditStatus}
+        </if>
+        <if test="param.status != null and param.status != ''">
+            and status = #{param.status}
+        </if>
+        <if test="param.publishTime != null">
+            and publish_time = #{param.publishTime}
+        </if>
+        <if test="param.viewCount != null and param.viewCount != ''">
+            and view_count = #{param.viewCount}
+        </if>
+        <if test="param.likeCount != null and param.likeCount != ''">
+            and like_count = #{param.likeCount}
+        </if>
+        <if test="param.version != null and param.version != ''">
+            and version = #{param.version}
+        </if>
+        <if test="param.remark != null and param.remark != ''">
+            and remark = #{param.remark}
+        </if>
+        <if test="param.createBy != null and param.createBy != ''">
+            and create_by = #{param.createBy}
+        </if>
+        <if test="param.createName != null and param.createName != ''">
+            and create_name = #{param.createName}
+        </if>
+        <if test="param.createTime != null">
+            and create_time = #{param.createTime}
+        </if>
+        <if test="param.updateBy != null and param.updateBy != ''">
+            and update_by = #{param.updateBy}
+        </if>
+        <if test="param.updateName != null and param.updateName != ''">
+            and update_name = #{param.updateName}
+        </if>
+        <if test="param.updateTime != null">
+            and update_time = #{param.updateTime}
+        </if>
+        <if test="param.deleted != null and param.deleted != ''">
+            and deleted = #{param.deleted}
+        </if>
+    </select>
+</mapper>

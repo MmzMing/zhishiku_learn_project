@@ -237,16 +237,6 @@ public class MediaProcessServiceImpl extends ServiceImpl<MediaProcessMapper, Med
         mediaProcessMapper.deleteById(taskId);
     }
 
-    /**
-     * 通过ID查询单条数据
-     *
-     * @param id 主键
-     * @return 实例对象
-     */
-    @Override
-    public MediaProcess queryById(long id) {
-        return mediaProcessMapper.selectById(id);
-    }
 
     /**
      * 分页查询
@@ -260,82 +250,5 @@ public class MediaProcessServiceImpl extends ServiceImpl<MediaProcessMapper, Med
         return TableDataInfo.build(mediaProcessMapper.pageQuery(pageQuery.build(), mediaProcess));
     }
 
-    /**
-     * 新增数据
-     *
-     * @param mediaProcess 实例对象
-     * @return 实例对象
-     */
-    @Override
-    public MediaProcess insert(MediaProcess mediaProcess) {
-        mediaProcessMapper.insert(mediaProcess);
-        return mediaProcess;
-    }
 
-    /**
-     * 更新数据
-     *
-     * @param mediaProcess 实例对象
-     * @return 实例对象
-     */
-    @Override
-    public MediaProcess update(MediaProcess mediaProcess) {
-        //1. 根据条件动态更新
-        LambdaUpdateChainWrapper<MediaProcess> chainWrapper = new LambdaUpdateChainWrapper<MediaProcess>(mediaProcessMapper);
-
-        if (!StringUtils.isEmpty(mediaProcess.getFileId())) {
-            chainWrapper.eq(MediaProcess::getFileId, mediaProcess.getFileId());
-        }
-        if (!StringUtils.isEmpty(mediaProcess.getFileName())) {
-            chainWrapper.eq(MediaProcess::getFileName, mediaProcess.getFileName());
-        }
-        if (!StringUtils.isEmpty(mediaProcess.getBucket())) {
-            chainWrapper.eq(MediaProcess::getBucket, mediaProcess.getBucket());
-        }
-        if (!StringUtils.isEmpty(mediaProcess.getFilePath())) {
-            chainWrapper.eq(MediaProcess::getFilePath, mediaProcess.getFilePath());
-        }
-        if (!StringUtils.isEmpty(mediaProcess.getStatus())) {
-            chainWrapper.eq(MediaProcess::getStatus, mediaProcess.getStatus());
-        }
-        if (!StringUtils.isEmpty(mediaProcess.getUrl())) {
-            chainWrapper.eq(MediaProcess::getUrl, mediaProcess.getUrl());
-        }
-        if (!StringUtils.isEmpty(mediaProcess.getErrorMsg())) {
-            chainWrapper.eq(MediaProcess::getErrorMsg, mediaProcess.getErrorMsg());
-        }
-        if (!StringUtils.isEmpty(mediaProcess.getCreateBy())) {
-            chainWrapper.eq(MediaProcess::getCreateBy, mediaProcess.getCreateBy());
-        }
-        if (!StringUtils.isEmpty(mediaProcess.getCreateName())) {
-            chainWrapper.eq(MediaProcess::getCreateName, mediaProcess.getCreateName());
-        }
-        if (!StringUtils.isEmpty(mediaProcess.getUpdateBy())) {
-            chainWrapper.eq(MediaProcess::getUpdateBy, mediaProcess.getUpdateBy());
-        }
-        if (!StringUtils.isEmpty(mediaProcess.getUpdateName())) {
-            chainWrapper.eq(MediaProcess::getUpdateName, mediaProcess.getUpdateName());
-        }
-        //2. 设置主键，并更新
-        chainWrapper.set(MediaProcess::getId, mediaProcess.getId());
-        boolean ret = chainWrapper.update();
-        //3. 更新成功了，查询最最对象返回
-        if (ret) {
-            return queryById(mediaProcess.getId());
-        } else {
-            return mediaProcess;
-        }
-    }
-
-    /**
-     * 通过主键删除数据
-     *
-     * @param id 主键
-     * @return 是否成功
-     */
-    @Override
-    public boolean deleteById(long id) {
-        int total = mediaProcessMapper.deleteById(id);
-        return total > 0;
-    }
 }

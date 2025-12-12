@@ -1,7 +1,5 @@
 package com.whm.media.domain.po;
 
-
-
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.whm.common.mybatis.base.BaseDomain;
 import io.swagger.annotations.ApiModel;
@@ -12,16 +10,21 @@ import java.time.LocalDateTime;
 
 
 /**
- * minio上传历史处理信息
+ * 媒资服务_文件处理历史表
  *
  * @author ：吴华明
- * @date : 2025-09-18 15:18:41
+ * @since : 2025-12-12 11:45:49
  */
 @Data
 @TableName("media_process_history")
-@ApiModel(value = "media_process_history对象", description = "minio上传历史处理信息")
+@ApiModel(value = "media_process_history对象", description = "媒资服务_文件处理历史表")
 public class MediaProcessHistory extends BaseDomain {
 
+    /**
+     * 租户id
+     */
+    @ApiModelProperty("租户id")
+    private String tenantId ;
     /**
      * 文件标识
      */

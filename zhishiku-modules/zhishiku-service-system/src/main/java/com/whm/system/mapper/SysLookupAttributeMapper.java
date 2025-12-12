@@ -3,14 +3,14 @@ package com.whm.system.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.whm.system.domain.po.SysLookupAttribute;
 import org.apache.ibatis.annotations.Param;
+import com.whm.system.domain.po.SysLookupAttribute;
 
 /**
- * 快码属性设置 表数据库访问层
+ * 系统服务_快码属性设置表 表数据库访问层
  *
  * @author : 吴华明
- * @date : 2025-09-09 11:50:42
+ * @since : 2025-12-12 13:58:39
  */
 public interface SysLookupAttributeMapper extends BaseMapper<SysLookupAttribute>{
     /**

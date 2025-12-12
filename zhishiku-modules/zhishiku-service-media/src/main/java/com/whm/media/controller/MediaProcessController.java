@@ -3,23 +3,22 @@ package com.whm.media.controller;
 import com.whm.common.core.domain.R;
 import com.whm.common.mybatis.page.PageQuery;
 import com.whm.common.mybatis.page.TableDataInfo;
-import com.whm.media.domain.po.MediaProcess;
-import com.whm.media.service.MediaProcessService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import com.whm.media.domain.po.MediaProcess;
+import com.whm.media.service.MediaProcessService;
 /**
- * 文件上传信息接口 表控制层
+ * 媒资服务_文件类型转换表 表控制层
  *
  * @author : 吴华明
- * @since : 2025-09-18 15:17:57
+ * @since : 2025-12-12 11:49:26
  */
-@Api(tags = "文件上传信息处理接口")
+@Api(tags = "媒资服务_文件类型转换表")
 @RestController
 @RequestMapping("/mediaProcess")
-public class MediaProcessController {
+public class MediaProcessController{
     @Autowired
     private MediaProcessService mediaProcessService;
 
@@ -31,20 +30,20 @@ public class MediaProcessController {
      */
     @ApiOperation(value = "根据id查询")
     @GetMapping("/{id}")
-    public R<MediaProcess> queryById(@PathVariable long id) {
-        return R.ok(mediaProcessService.queryById(id));
+    public R<MediaProcess> queryById(@PathVariable("id") long id){
+        return R.ok(mediaProcessService.getById(id));
     }
 
     /**
      * 分页查询
      *
      * @param mediaProcess 筛选条件
-     * @param pageQuery    分页对象
+     * @param pageQuery        分页对象
      * @return 查询结果
      */
     @ApiOperation(value = "分页查询")
     @GetMapping("/pageQuery")
-    public TableDataInfo<MediaProcess> pageQuery(MediaProcess mediaProcess, PageQuery pageQuery) {
+    public TableDataInfo<MediaProcess> pageQuery(MediaProcess mediaProcess, PageQuery pageQuery){
         return mediaProcessService.pageQuery(mediaProcess, pageQuery);
     }
 
@@ -56,8 +55,8 @@ public class MediaProcessController {
      */
     @ApiOperation(value = "新增数据")
     @PostMapping("/add")
-    public R<MediaProcess> add(@RequestBody MediaProcess mediaProcess) {
-        return R.ok(mediaProcessService.insert(mediaProcess));
+    public R<Boolean> add(@RequestBody MediaProcess mediaProcess){
+        return R.ok(mediaProcessService.save(mediaProcess));
     }
 
     /**
@@ -68,8 +67,8 @@ public class MediaProcessController {
      */
     @ApiOperation(value = "更新数据")
     @PutMapping("/update")
-    public R<MediaProcess> edit(@RequestBody MediaProcess mediaProcess) {
-        return R.ok(mediaProcessService.update(mediaProcess));
+    public R<Boolean> edit(@RequestBody MediaProcess mediaProcess){
+        return R.ok(mediaProcessService.updateById(mediaProcess));
     }
 
     /**
@@ -79,8 +78,8 @@ public class MediaProcessController {
      * @return 是否成功
      */
     @ApiOperation(value = "非物理删除数据")
-    @DeleteMapping("/delete")
-    public R<Boolean> deleteById(long id) {
+    @DeleteMapping("/delete/{id}")
+    public R<Boolean> deleteById(@PathVariable("id") long id){
         return R.ok(mediaProcessService.lambdaUpdate().eq(MediaProcess::getId, id).set(MediaProcess::getDeleted, 1).update());
     }
 }

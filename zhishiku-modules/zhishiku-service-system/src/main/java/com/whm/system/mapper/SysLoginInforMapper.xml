@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whm.system.mapper.SysLoginInforMapper">
+    <sql id="selectSysLoginInforVo">
+        SELECT
+            id,user_name,ip_addr,status,msg,access_time
+        FROM sys_login_infor
+    </sql>
+    <select id="pageQuery" parameterType="com.whm.system.domain.po.SysLoginInfor" resultType="com.whm.system.domain.po.SysLoginInfor">
+        <include refid="selectSysLoginInforVo"/>
+        where 1=1
+        <if test="param.id != null and param.id != ''">
+            and id = #{param.id}
+        </if>
+        <if test="param.userName != null and param.userName != ''">
+            and user_name = #{param.userName}
+        </if>
+        <if test="param.ipAddr != null and param.ipAddr != ''">
+            and ip_addr = #{param.ipAddr}
+        </if>
+        <if test="param.status != null and param.status != ''">
+            and status = #{param.status}
+        </if>
+        <if test="param.msg != null and param.msg != ''">
+            and msg = #{param.msg}
+        </if>
+        <if test="param.accessTime != null and param.accessTime != ''">
+            and access_time = #{param.accessTime}
+        </if>
+    </select>
+</mapper>

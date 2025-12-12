@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whm.system.mapper.SysTenantDataMapper">
+    <sql id="selectSysTenantDataVo">
+        SELECT id,
+               tenant_id,
+               tenant_code,
+               tenant_name,
+               tenant_type,
+               expire_time,
+               parent_tenant_id,
+               tenant_contact,
+               tenant_phone,
+               tenant_email,
+               isolation_level,
+               max_user_num,
+               audit_status,
+               audit_by,
+               audit_time,
+               create_by,
+               create_name,
+               create_time,
+               update_by,
+               update_name,
+               update_time,
+               deleted
+        FROM sys_tenant_data
+    </sql>
+    <select id="pageQuery" parameterType="com.whm.system.domain.po.SysTenantData"
+            resultType="com.whm.system.domain.po.SysTenantData">
+        <include refid="selectSysTenantDataVo"/>
+        where 1=1
+        <if test="param.id != null and param.id != ''">
+            and id = #{param.id}
+        </if>
+        <if test="param.tenantId != null and param.tenantId != ''">
+            and tenant_id = #{param.tenantId}
+        </if>
+        <if test="param.tenantCode != null and param.tenantCode != ''">
+            and tenant_code = #{param.tenantCode}
+        </if>
+        <if test="param.tenantName != null and param.tenantName != ''">
+            and tenant_name = #{param.tenantName}
+        </if>
+        <if test="param.tenantType != null and param.tenantType != ''">
+            and tenant_type = #{param.tenantType}
+        </if>
+        <if test="param.expireTime != null and param.expireTime != ''">
+            and expire_time = #{param.expireTime}
+        </if>
+        <if test="param.parentTenantId != null and param.parentTenantId != ''">
+            and parent_tenant_id = #{param.parentTenantId}
+        </if>
+        <if test="param.tenantContact != null and param.tenantContact != ''">
+            and tenant_contact = #{param.tenantContact}
+        </if>
+        <if test="param.tenantPhone != null and param.tenantPhone != ''">
+            and tenant_phone = #{param.tenantPhone}
+        </if>
+        <if test="param.tenantEmail != null and param.tenantEmail != ''">
+            and tenant_email = #{param.tenantEmail}
+        </if>
+        <if test="param.isolationLevel != null and param.isolationLevel != ''">
+            and isolation_level = #{param.isolationLevel}
+        </if>
+        <if test="param.maxUserNum != null and param.maxUserNum != ''">
+            and max_user_num = #{param.maxUserNum}
+        </if>
+        <if test="param.auditStatus != null and param.auditStatus != ''">
+            and audit_status = #{param.auditStatus}
+        </if>
+        <if test="param.auditBy != null and param.auditBy != ''">
+            and audit_by = #{param.auditBy}
+        </if>
+        <if test="param.auditTime != null and param.auditTime != ''">
+            and audit_time = #{param.auditTime}
+        </if>
+        <if test="param.createBy != null and param.createBy != ''">
+            and create_by = #{param.createBy}
+        </if>
+        <if test="param.createName != null and param.createName != ''">
+            and create_name = #{param.createName}
+        </if>
+        <if test="param.createTime != null and param.createTime != ''">
+            and create_time = #{param.createTime}
+        </if>
+        <if test="param.updateBy != null and param.updateBy != ''">
+            and update_by = #{param.updateBy}
+        </if>
+        <if test="param.updateName != null and param.updateName != ''">
+            and update_name = #{param.updateName}
+        </if>
+        <if test="param.updateTime != null and param.updateTime != ''">
+            and update_time = #{param.updateTime}
+        </if>
+        <if test="param.deleted != null and param.deleted != ''">
+            and deleted = #{param.deleted}
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whm.system.mapper.SysUserMapper">
+    <sql id="selectSysUserVo">
+        SELECT id,
+               tenant_id,
+               user_name,
+               nick_name,
+               user_type,
+               email,
+               phone_number,
+               sex,
+               avatar,
+               password,
+               status,
+               del_flag,
+               login_ip,
+               login_date,
+               remark,
+               ding_id,
+               wx_id,
+               qq_id,
+               create_by,
+               create_name,
+               create_time,
+               update_by,
+               update_name,
+               update_time,
+               deleted
+        FROM sys_user
+    </sql>
+    <select id="pageQuery" parameterType="com.whm.system.domain.po.SysUser"
+            resultType="com.whm.system.domain.po.SysUser">
+        <include refid="selectSysUserVo"/>
+        where 1=1
+        <if test="param.id != null and param.id != ''">
+            and id = #{param.id}
+        </if>
+        <if test="param.tenantId != null and param.tenantId != ''">
+            and tenant_id = #{param.tenantId}
+        </if>
+        <if test="param.userName != null and param.userName != ''">
+            and user_name = #{param.userName}
+        </if>
+        <if test="param.nickName != null and param.nickName != ''">
+            and nick_name = #{param.nickName}
+        </if>
+        <if test="param.userType != null and param.userType != ''">
+            and user_type = #{param.userType}
+        </if>
+        <if test="param.email != null and param.email != ''">
+            and email = #{param.email}
+        </if>
+        <if test="param.phoneNumber != null and param.phoneNumber != ''">
+            and phone_number = #{param.phoneNumber}
+        </if>
+        <if test="param.sex != null and param.sex != ''">
+            and sex = #{param.sex}
+        </if>
+        <if test="param.avatar != null and param.avatar != ''">
+            and avatar = #{param.avatar}
+        </if>
+        <if test="param.password != null and param.password != ''">
+            and password = #{param.password}
+        </if>
+        <if test="param.status != null and param.status != ''">
+            and status = #{param.status}
+        </if>
+        <if test="param.delFlag != null and param.delFlag != ''">
+            and del_flag = #{param.delFlag}
+        </if>
+        <if test="param.loginIp != null and param.loginIp != ''">
+            and login_ip = #{param.loginIp}
+        </if>
+        <if test="param.loginDate != null and param.loginDate != ''">
+            and login_date = #{param.loginDate}
+        </if>
+        <if test="param.remark != null and param.remark != ''">
+            and remark = #{param.remark}
+        </if>
+        <if test="param.dingId != null and param.dingId != ''">
+            and ding_id = #{param.dingId}
+        </if>
+        <if test="param.wxId != null and param.wxId != ''">
+            and wx_id = #{param.wxId}
+        </if>
+        <if test="param.qqId != null and param.qqId != ''">
+            and qq_id = #{param.qqId}
+        </if>
+        <if test="param.createBy != null and param.createBy != ''">
+            and create_by = #{param.createBy}
+        </if>
+        <if test="param.createName != null and param.createName != ''">
+            and create_name = #{param.createName}
+        </if>
+        <if test="param.createTime != null and param.createTime != ''">
+            and create_time = #{param.createTime}
+        </if>
+        <if test="param.updateBy != null and param.updateBy != ''">
+            and update_by = #{param.updateBy}
+        </if>
+        <if test="param.updateName != null and param.updateName != ''">
+            and update_name = #{param.updateName}
+        </if>
+        <if test="param.updateTime != null and param.updateTime != ''">
+            and update_time = #{param.updateTime}
+        </if>
+        <if test="param.deleted != null and param.deleted != ''">
+            and deleted = #{param.deleted}
+        </if>
+    </select>
+</mapper>

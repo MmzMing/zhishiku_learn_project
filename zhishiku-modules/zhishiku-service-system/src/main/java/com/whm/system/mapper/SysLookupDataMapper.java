@@ -7,10 +7,10 @@ import org.apache.ibatis.annotations.Param;
 import com.whm.system.domain.po.SysLookupData;
 
 /**
- * 快码数据表 表数据库访问层
+ * 系统服务_快码数据表 表数据库访问层
  *
  * @author : 吴华明
- * @date : 2025-09-09 12:24:34
+ * @since : 2025-12-12 13:53:08
  */
 public interface SysLookupDataMapper extends BaseMapper<SysLookupData>{
     /**

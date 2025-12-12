@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whm.system.mapper.SysOperLogMapper">
+    <sql id="selectSysOperLogVo">
+        SELECT id,
+               title,
+               business_type,
+               method,
+               request_method,
+               operator_type,
+               oper_name,
+               oper_url,
+               oper_ip,
+               oper_location,
+               oper_param,
+               json_result,
+               status,
+               error_msg,
+               oper_time
+        FROM sys_oper_log
+    </sql>
+    <select id="pageQuery" parameterType="com.whm.system.domain.po.SysOperLog"
+            resultType="com.whm.system.domain.po.SysOperLog">
+        <include refid="selectSysOperLogVo"/>
+        where 1=1
+        <if test="param.id != null and param.id != ''">
+            and id = #{param.id}
+        </if>
+        <if test="param.title != null and param.title != ''">
+            and title = #{param.title}
+        </if>
+        <if test="param.businessType != null and param.businessType != ''">
+            and business_type = #{param.businessType}
+        </if>
+        <if test="param.method != null and param.method != ''">
+            and method = #{param.method}
+        </if>
+        <if test="param.requestMethod != null and param.requestMethod != ''">
+            and request_method = #{param.requestMethod}
+        </if>
+        <if test="param.operatorType != null and param.operatorType != ''">
+            and operator_type = #{param.operatorType}
+        </if>
+        <if test="param.operName != null and param.operName != ''">
+            and oper_name = #{param.operName}
+        </if>
+        <if test="param.operUrl != null and param.operUrl != ''">
+            and oper_url = #{param.operUrl}
+        </if>
+        <if test="param.operIp != null and param.operIp != ''">
+            and oper_ip = #{param.operIp}
+        </if>
+        <if test="param.operLocation != null and param.operLocation != ''">
+            and oper_location = #{param.operLocation}
+        </if>
+        <if test="param.operParam != null and param.operParam != ''">
+            and oper_param = #{param.operParam}
+        </if>
+        <if test="param.jsonResult != null and param.jsonResult != ''">
+            and json_result = #{param.jsonResult}
+        </if>
+        <if test="param.status != null and param.status != ''">
+            and status = #{param.status}
+        </if>
+        <if test="param.errorMsg != null and param.errorMsg != ''">
+            and error_msg = #{param.errorMsg}
+        </if>
+        <if test="param.operTime != null and param.operTime != ''">
+            and oper_time = #{param.operTime}
+        </if>
+    </select>
+</mapper>

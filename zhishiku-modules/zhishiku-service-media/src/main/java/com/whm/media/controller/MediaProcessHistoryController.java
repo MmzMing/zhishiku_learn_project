@@ -11,12 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 文件上传历史处理信息接口 表控制层
+ * 媒资服务_文件处理历史表 表控制层
  *
  * @author : 吴华明
- * @date : 2025-09-18 15:21:29
+ * @since : 2025-12-12 11:48:20
  */
-@Api(tags = "文件上传历史处理信息接口")
+@Api(tags = "媒资服务_文件处理历史表")
 @RestController
 @RequestMapping("/mediaProcessHistory")
 public class MediaProcessHistoryController {
@@ -31,8 +31,8 @@ public class MediaProcessHistoryController {
      */
     @ApiOperation(value = "根据id查询")
     @GetMapping("/{id}")
-    public R<MediaProcessHistory> queryById(@PathVariable long id) {
-        return R.ok(mediaProcessHistoryService.queryById(id));
+    public R<MediaProcessHistory> queryById(@PathVariable("id") long id) {
+        return R.ok(mediaProcessHistoryService.getById(id));
     }
 
     /**
@@ -56,8 +56,8 @@ public class MediaProcessHistoryController {
      */
     @ApiOperation(value = "新增数据")
     @PostMapping("/add")
-    public R<MediaProcessHistory> add(@RequestBody MediaProcessHistory mediaProcessHistory) {
-        return R.ok(mediaProcessHistoryService.insert(mediaProcessHistory));
+    public R<Boolean> add(@RequestBody MediaProcessHistory mediaProcessHistory) {
+        return R.ok(mediaProcessHistoryService.save(mediaProcessHistory));
     }
 
     /**
@@ -68,8 +68,8 @@ public class MediaProcessHistoryController {
      */
     @ApiOperation(value = "更新数据")
     @PutMapping("/update")
-    public R<MediaProcessHistory> edit(@RequestBody MediaProcessHistory mediaProcessHistory) {
-        return R.ok(mediaProcessHistoryService.update(mediaProcessHistory));
+    public R<Boolean> edit(@RequestBody MediaProcessHistory mediaProcessHistory) {
+        return R.ok(mediaProcessHistoryService.updateById(mediaProcessHistory));
     }
 
     /**
@@ -79,8 +79,8 @@ public class MediaProcessHistoryController {
      * @return 是否成功
      */
     @ApiOperation(value = "非物理删除数据")
-    @DeleteMapping("/delete")
-    public R<Boolean> deleteById(long id) {
+    @DeleteMapping("/delete/{id}")
+    public R<Boolean> deleteById(@PathVariable("id") long id) {
         return R.ok(mediaProcessHistoryService.lambdaUpdate().eq(MediaProcessHistory::getId, id).set(MediaProcessHistory::getDeleted, 1).update());
     }
 }
