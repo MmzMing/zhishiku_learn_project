@@ -56,11 +56,15 @@ public enum GatewayErrorCodeEnum {
     GATEWAY_INIT_FAILED(500, "500002", "网关核心组件初始化失败，请重启网关服务"),
     GATEWAY_FILTER_ERROR(500, "500003", "网关过滤器执行异常，请检查过滤器逻辑"),
     GATEWAY_CODEC_ERROR(500, "500004", "请求/响应数据编解码失败，请检查数据格式"),
-    SERVICE_RESPONSE_ERROR(500, "500005", "目标服务返回异常结果，请联系服务提供方"),
-    SERVICE_BUSINESS_ERROR(500, "500006", "目标服务返回业务异常：%s"),
+    SERVICE_RESPONSE_ERROR(500, "500005", "服务发生未知错误：%s，请联系管理员"),
+    SERVICE_BUSINESS_ERROR(500, "500006", "服务返回业务异常：%s"),
     SERVICE_CONNECTION_REFUSED(500, "500007", "无法连接到目标服务，请检查服务是否在线且网络可达"),
     ROUTE_CONFIG_ERROR(500, "500008", "路由规则配置无效，请联系管理员检查路由配置"),
     ROUTE_FORWARD_FAILED(500, "500009", "请求转发到目标服务失败，请检查路由地址是否正确"),
+    SERVICE_INTERNAL_ERROR(500, "500010", "服务器内部错误，请稍后重试"),
+    SERVER_UNAVAILABLE(500, "500011", "服务器暂时不可用，请稍后重试"),
+    SERVER_BUSY(500, "500012", "服务器繁忙，请稍后重试"),
+
     UNKNOWN_ERROR(500, "500999", "网关处理请求时发生未知异常，请联系管理员排查"),
 
     // ======================== 504xxx - 超时错误 ========================

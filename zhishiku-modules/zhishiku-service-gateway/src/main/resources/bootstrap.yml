@@ -31,21 +31,21 @@ spring:
       #服务注册相关配置
       discovery:
         group: ${spring.profiles.active}
-  sentinel:
+    sentinel:
     # 取消控制台懒加载
-    eager: true
-    transport:
+      eager: true
+      transport:
       # 控制台地址
-      dashboard: ${sentinel.dashboard-addr}
-    # nacos配置持久化
-    datasource:
-      ds1:
-        nacos:
-          # username: service
-          # password: pos20211230
-          server-addr: ${spring.cloud.nacos.server-addr}  # 现在能正确引用了
-          namespace: ${spring.cloud.nacos.namespace}  # 补充命名空间（关键）
-          dataId: sentinel-zhishiku-gateway
-          groupId: dev
-          data-type: json
-          rule-type: flow
+        dashboard: ${sentinel.dashboard-addr}
+      # nacos 配置持久化
+      datasource:
+        ds1:
+          nacos:
+            # username: service
+            # password: pos20211230
+            server-addr: ${spring.cloud.nacos.server-addr}  # 现在能正确引用了
+            dataId: sentinel-zhishiku-gateway
+
+            groupId: dev
+            data-type: json
+            rule-type: flow
