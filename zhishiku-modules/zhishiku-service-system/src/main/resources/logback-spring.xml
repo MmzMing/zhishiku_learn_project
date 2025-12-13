@@ -1,69 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <!-- 应用属性 -->
     <springProperty scope="context" name="appName" source="spring.application.name"/>
     <springProperty scope="context" name="appProfile" source="spring.profiles.active"/>
-    <springProperty scope="context" name="appName" source="spring.application.name"/>
     <springProperty scope="context" name="servicePort" source="server.port"/>
-    <property name="FILE_MAX_HISTORY" value="2"/>
-    <property name="FILE_MAX_SIZE" value="30MB"/>
+
+    <!-- 配置参数 -->
+    <property name="FILE_MAX_HISTORY" value="2"/> <!-- 适当增加历史保留天数 -->
+    <property name="FILE_MAX_SIZE" value="30MB"/> <!-- 根据业务量调整 -->
+    <property name="FILE_TOTAL_SIZE_CAP" value="2GB"/> <!-- 添加总大小限制 -->
     <property name="DEPARTMENT" value="YGMOM"/>
-    <!-- 日志存放路径 -->
-    <property name="log.path" value="/data/server_logs/${appName}"/>
+    <property name="log.path" value="/data/server_logs/${appName}"/> <!-- 日志存放路径 -->
+
     <!-- 日志输出格式 -->
-    <property name="log.pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [${DEPARTMENT}] [${appName}-${appProfile}] [TID:] [%thread] %logger{50} %msg%n" />
+    <property name="log.pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [${DEPARTMENT}] [${appName}-${appProfile}] [%X{traceId:-}] [%X{spanId:-}] %logger{36} - %msg%n" />
 
     <!-- 彩色日志依赖的渲染类 -->
     <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
     <conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
     <conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
-    <!-- 彩色日志格式 -->
-    <property name="CONSOLE_LOG_PATTERN" value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
 
-    <!-- 控制台输出 -->
+    <!-- 彩色日志格式 -->
+    <property name="CONSOLE_LOG_PATTERN" value="%clr(%d{HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:-}){magenta} %clr([%X{traceId:-}]){green} %clr([%15.15t]){blue} %clr(%-30.30logger{30}){cyan}: %clr(%m){bold}%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
         </encoder>
     </appender>
 
     <!-- 系统日志输出 -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!-- 循环政策：基于时间创建日志文件 -->
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- 日志文件名格式 -->
-            <fileNamePattern>${log.path}/%d{yyyy-MM-dd}.log</fileNamePattern>
-            <!-- 日志最大的历史 60天 -->
+        <file>${log.path}/app.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/%d{yyyy-MM-dd}/app.%i.log.gz</fileNamePattern>
+            <maxFileSize>${FILE_MAX_SIZE}</maxFileSize>
             <maxHistory>${FILE_MAX_HISTORY}</maxHistory>
+            <totalSizeCap>${FILE_TOTAL_SIZE_CAP}</totalSizeCap>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
         </rollingPolicy>
-        <!--超过临界值归档-->
-        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">　　　　　　　
-            <maxFileSize>${FILE_MAX_SIZE}</maxFileSize>　　
-        </triggeringPolicy>
         <encoder>
             <pattern>${log.pattern}</pattern>
+            <charset>UTF-8</charset>
         </encoder>
-        <!--日志级别：ALL < TRACE < TRACE < DEBUG < INFO < WARN < ERROR < FATAL < OFF -->
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <!-- 过滤的级别 -->
-            <level>INFO</level>
-        </filter>
-        <append>true</append>
     </appender>
+
+    <!-- 错误日志单独输出 -->
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/%d{yyyy-MM-dd}/error.%i.log.gz</fileNamePattern>
+            <maxFileSize>50MB</maxFileSize>
+            <maxHistory>90</maxHistory>
+            <totalSizeCap>5GB</totalSizeCap>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
 
     <!--异步输出-->
     <appender name="ASYNC-FILE" class="ch.qos.logback.classic.AsyncAppender">
-        <!--默认队列深度-->
-        <queueSize>256</queueSize>
-        <!--指定的记录器-->
-        <appender-ref ref="FILE"/>
-        <!--不丢失日志-->
-        <discardingThreshold>0</discardingThreshold>
+        <queueSize>256</queueSize>  <!--默认队列深度-->
+        <discardingThreshold>0</discardingThreshold> <!--不丢失日志-->
+
+        <appender-ref ref="FILE"/> <!--指定的记录器-->
     </appender>
+    <appender name="ASYNC-ERROR" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>512</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <neverBlock>false</neverBlock>
+        <appender-ref ref="ERROR_FILE"/>
+    </appender>
+
+    <!-- 日志级别配置 -->
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.hibernate.SQL" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
 
     <!--系统操作日志-->
     <root level="INFO">
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="ASYNC-FILE"/>
+        <appender-ref ref="ASYNC-ERROR"/>
     </root>
 </configuration>
