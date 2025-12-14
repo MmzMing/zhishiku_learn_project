@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  * 全局异常
  *
  * @author 吴华明
- * @date 2025/9/9 17:36
+ * @since 2025/9/9 17:36
  */
 @Slf4j
 @RestControllerAdvice
@@ -105,19 +105,4 @@ public class GlobalExceptionHandler {
         return R.fail(message);
     }
 
-//    /**
-//     * 内部认证异常
-//     */
-//    @ExceptionHandler(InnerAuthException.class)
-//    public R handleInnerAuthException(InnerAuthException e) {
-//        return R.fail(e.getMessage());
-//    }
-//
-//    /**
-//     * 演示模式异常
-//     */
-//    @ExceptionHandler(DemoModeException.class)
-//    public R handleDemoModeException(DemoModeException e) {
-//        return R.fail("演示模式，不允许操作");
-//    }
 }

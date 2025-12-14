@@ -6,9 +6,9 @@ import com.whm.common.core.constant.HttpStatus;
 import com.whm.common.core.constant.SecurityConstants;
 import com.whm.common.core.constant.TokenConstants;
 import com.whm.common.core.enums.GatewayErrorCodeEnum;
-import com.whm.common.core.utils.JwtUtils;
 import com.whm.common.core.utils.ServletUtils;
 import com.whm.common.core.utils.StringUtils;
+import com.whm.common.core.utils.check.JwtUtils;
 import com.whm.common.redis.service.RedisService;
 import com.whm.gateway.config.IgnoreWhiteConfigInfo;
 import io.jsonwebtoken.Claims;
@@ -84,6 +84,7 @@ public class GatewayAuthFiler implements GlobalFilter, Ordered {
         addHeader(mutate, SecurityConstants.DETAILS_USERNAME, username);
         // 内部请求来源参数清除
         removeHeader(mutate, SecurityConstants.FROM_SOURCE);
+        // 允许请求继续向下执行，将带有用户信息的新请求传递给后续处理环节
         return chain.filter(exchange.mutate().request(mutate.build()).build());
     }
 

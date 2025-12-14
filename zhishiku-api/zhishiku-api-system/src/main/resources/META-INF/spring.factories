@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.whm.system.api.factory.SysOperLogClientFactory, \
+  com.whm.system.api.factory.SysUserClientFactory

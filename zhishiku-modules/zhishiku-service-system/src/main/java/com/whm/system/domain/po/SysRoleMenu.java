@@ -1,6 +1,7 @@
 package com.whm.system.domain.po;
 
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,7 +17,6 @@ import java.io.Serializable;
  */
 @Data
 @ApiModel(value = "sys_role_menu对象", description = "系统服务_角色和菜单关联表")
-@TableName("sys_role_menu")
 public class SysRoleMenu implements Serializable {
     private static final long serialVersionUID = 1L;
     /**

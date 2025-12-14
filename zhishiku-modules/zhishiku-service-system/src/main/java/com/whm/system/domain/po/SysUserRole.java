@@ -14,7 +14,6 @@ import java.io.Serializable;
  * @since : 2025-12-12 12:26:45
  */
 @Data
-@TableName("sys_user_role")
 @ApiModel(value = "sys_user_role对象", description = "系统服务_用户和角色关联表")
 public class SysUserRole implements Serializable {
 

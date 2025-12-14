@@ -2,6 +2,7 @@ package com.whm.common.core.utils.ip;
 
 
 import cn.hutool.core.util.StrUtil;
+import com.whm.common.core.constant.HttpConstant;
 import com.whm.common.core.utils.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +20,6 @@ public class IpUtils {
     private IpUtils() {
     }
 
-    private static final String UNKNOWN = "unknown";
-    private static final String LOCALHOST_127 = "127.0.0.1";
 
     /**
      * 获取客户端IP
@@ -30,27 +29,27 @@ public class IpUtils {
      */
     public static String getIpAddr(HttpServletRequest request) {
         if (request == null) {
-            return UNKNOWN;
+            return HttpConstant.UNKNOWN;
         }
-        String ip = request.getHeader("x-forwarded-for");
-        if (ip == null || ip.isEmpty() || UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
+        String ip = request.getHeader(HttpConstant.X_FORWARDED_FOR);
+        if (ip == null || ip.isEmpty() || HttpConstant.UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader(HttpConstant.PROXY_CLIENT_IP);
         }
-        if (ip == null || ip.isEmpty() || UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("X-Forwarded-For");
+        if (ip == null || ip.isEmpty() || HttpConstant.UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader(HttpConstant.X_FORWARDED_FOR);
         }
-        if (ip == null || ip.isEmpty() || UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
+        if (ip == null || ip.isEmpty() || HttpConstant.UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader(HttpConstant.WL_PROXY_CLIENT_IP);
         }
-        if (ip == null || ip.isEmpty() || UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("X-Real-IP");
+        if (ip == null || ip.isEmpty() || HttpConstant.UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader(HttpConstant.X_REAL_IP);
         }
 
-        if (ip == null || ip.isEmpty() || UNKNOWN.equalsIgnoreCase(ip)) {
+        if (ip == null || ip.isEmpty() || HttpConstant.UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         }
 
-        return "0:0:0:0:0:0:0:1".equals(ip) ? LOCALHOST_127 : getMultistageReverseProxyIp(ip);
+        return "0:0:0:0:0:0:0:1".equals(ip) ? HttpConstant.LOCALHOST_127 : getMultistageReverseProxyIp(ip);
     }
 
     /**
@@ -61,7 +60,7 @@ public class IpUtils {
      */
     public static boolean internalIp(String ip) {
         byte[] addr = textToNumericFormatV4(ip);
-        return internalIp(addr) || LOCALHOST_127.equals(ip);
+        return internalIp(addr) || HttpConstant.LOCALHOST_127.equals(ip);
     }
 
     /**
@@ -229,7 +228,7 @@ public class IpUtils {
      * @return 是否未知
      */
     public static boolean isUnknown(String checkString) {
-        return StringUtils.isBlank(checkString) || UNKNOWN.equalsIgnoreCase(checkString);
+        return StringUtils.isBlank(checkString) || HttpConstant.UNKNOWN.equalsIgnoreCase(checkString);
     }
 }
 

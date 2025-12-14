@@ -1,4 +1,5 @@
-package com.whm.common.core.utils;
+package com.whm.common.core.utils.check;
+
 
 
 import cn.hutool.core.convert.Convert;
@@ -125,3 +126,4 @@ public class JwtUtils {
         return getValue(claims, SecurityConstants.USER_ACCOUNT);
     }
 }
+

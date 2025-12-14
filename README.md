@@ -8,13 +8,6 @@
 | zhishiku-auth              | 30010  | 认证服务           |
 | zhishiku-service-monitor   | 30020  | 监控服务           |
 | zhishiku-service-system    | 30030  | 系统服务           |
-| zhishiku-service-file      | 30040  | 文件服务           |
-| zhishiku-service-gen       | 30050  | 代码生成服务       |
-| zhishiku-service-job       | 30060  | 调度服务           |
-| zhishiku-service-external  | 30070  | 外部接口服务       |
-| zhishiku-service-message   | 30080  | 消息服务           |
-| zhishiku-service-mq        | 30090  | MQ消息队列服务     |
-| zhishiku-service-kernel-dc | 30110  | 导出中心服务       |
 | zhishiku-service-content   | 40010  | 知识库内容管理服务 |
 | zhishiku-service-media     | 40020  | 媒体文件服务       |
 | zhishiku-service-ai-chat   | 40030  | AI聊天室           |

@@ -4,6 +4,7 @@ package com.whm.common.core.utils;
 import cn.hutool.core.text.StrFormatter;
 import cn.hutool.core.util.StrUtil;
 import com.whm.common.core.constant.Constants;
+import com.whm.common.core.constant.HttpConstant;
 import org.springframework.util.AntPathMatcher;
 
 import java.util.Collection;
@@ -13,22 +14,14 @@ import java.util.Map;
 /**
  * 字符串工具类
  * <p>
- *     lang3.StringUtils的扩展
+ * lang3.StringUtils的扩展
  * <p>
  *
  * @author 吴华明
  * @date 2025/9/6 10:30
  */
 public class StringUtils extends org.apache.commons.lang3.StringUtils {
-    /**
-     * 空字符串
-     */
-    private static final String NULLSTR = "";
 
-    /**
-     * 下划线
-     */
-    private static final char SEPARATOR = '_';
 
     /**
      * 获取参数不为空值
@@ -107,7 +100,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return true：为空 false：非空
      */
     public static boolean isEmpty(String str) {
-        return isNull(str) || NULLSTR.equals(str.trim());
+        return isNull(str) || Constants.NULL_STR.equals(str.trim());
     }
 
     /**
@@ -166,7 +159,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      */
     public static String substring(final String str, int start) {
         if (str == null) {
-            return NULLSTR;
+            return Constants.NULL_STR;
         }
 
         if (start < 0) {
@@ -177,7 +170,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
             start = 0;
         }
         if (start > str.length()) {
-            return NULLSTR;
+            return Constants.NULL_STR;
         }
 
         return str.substring(start);
@@ -193,7 +186,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      */
     public static String substring(final String str, int start, int end) {
         if (str == null) {
-            return NULLSTR;
+            return Constants.NULL_STR;
         }
 
         if (end < 0) {
@@ -208,7 +201,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         }
 
         if (start > end) {
-            return NULLSTR;
+            return Constants.NULL_STR;
         }
 
         if (start < 0) {
@@ -268,7 +261,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return 结果
      */
     public static boolean ishttp(String link) {
-        return StringUtils.startsWithAny(link, Constants.HTTP, Constants.HTTPS);
+        return StringUtils.startsWithAny(link, HttpConstant.HTTP, HttpConstant.HTTPS);
     }
 
     /**
@@ -300,9 +293,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
             }
 
             if (preCharIsUpperCase && curreCharIsUpperCase && !nexteCharIsUpperCase) {
-                sb.append(SEPARATOR);
+                sb.append(Constants.SEPARATOR);
             } else if ((i != 0 && !preCharIsUpperCase) && curreCharIsUpperCase) {
-                sb.append(SEPARATOR);
+                sb.append(Constants.SEPARATOR);
             }
             sb.append(Character.toLowerCase(c));
         }
@@ -371,7 +364,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
 
-            if (c == SEPARATOR) {
+            if (c == Constants.SEPARATOR) {
                 upperCase = true;
             } else if (upperCase) {
                 sb.append(Character.toUpperCase(c));

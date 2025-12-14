@@ -20,11 +20,11 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
-        <!-- Mysql Connector -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
+        <!-- Spring Boot Admin -->
+<!--        <dependency>-->
+<!--            <groupId>de.codecentric</groupId>-->
+<!--            <artifactId>spring-boot-admin-starter-server</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.security.oauth.boot</groupId>
             <artifactId>spring-security-oauth2-autoconfigure</artifactId>
@@ -35,6 +35,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
         <!-- Ids Common -->
         <!-- Spring Boot 的 Spring Web MVC 集成 & swagger -->
         <dependency>
@@ -47,11 +48,16 @@
         </dependency>
         <dependency>
             <groupId>com.whm</groupId>
-            <artifactId>zhishiku-common-mybatis</artifactId>
+            <artifactId>zhishiku-common-log</artifactId>
         </dependency>
         <dependency>
             <groupId>com.whm</groupId>
-            <artifactId>zhishiku-common-log</artifactId>
+            <artifactId>zhishiku-common-security</artifactId>
+        </dependency>
+        <!-- Ids Api -->
+        <dependency>
+            <groupId>com.whm</groupId>
+            <artifactId>zhishiku-api-system</artifactId>
         </dependency>
     </dependencies>
 

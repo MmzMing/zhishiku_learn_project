@@ -39,13 +39,13 @@ spring:
         dashboard: ${sentinel.dashboard-addr}
       # nacos 配置持久化
       datasource:
-        ds1:
+        flow-rule:
           nacos:
             # username: service
             # password: pos20211230
-            server-addr: ${spring.cloud.nacos.server-addr}  # 现在能正确引用了
-            dataId: sentinel-zhishiku-gateway
-
-            groupId: dev
+            namespace: zsk
+            server-addr: ${spring.cloud.nacos.server-addr}
+            data-id: sentinel-zhishiku-gateway.json
+            group-id: dev
             data-type: json
             rule-type: flow

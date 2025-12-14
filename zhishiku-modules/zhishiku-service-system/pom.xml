@@ -40,15 +40,7 @@
         </dependency>
         <dependency>
             <groupId>com.whm</groupId>
-            <artifactId>zhishiku-common-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.whm</groupId>
-            <artifactId>zhishiku-common-mybatis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.whm</groupId>
-            <artifactId>zhishiku-common-log</artifactId>
+            <artifactId>zhishiku-common-security</artifactId>
         </dependency>
     </dependencies>
 

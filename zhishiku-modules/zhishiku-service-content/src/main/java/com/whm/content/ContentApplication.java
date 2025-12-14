@@ -1,13 +1,13 @@
 package com.whm.content;
 
 import com.whm.common.core.utils.ConvertReUtils;
+import com.whm.common.security.annotation.EnableRyFeignClients;
 import com.whm.common.swagger.annotation.EnableCustomSwagger2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
 
@@ -20,7 +20,7 @@ import java.net.UnknownHostException;
  * @author 吴华明
  */
 @Slf4j
-@EnableFeignClients(basePackages = "com.whm.*")
+@EnableRyFeignClients
 @EnableCustomSwagger2
 @SpringBootApplication
 public class ContentApplication extends SpringBootServletInitializer {

@@ -31,16 +31,6 @@
             <artifactId>commons-collections</artifactId>
         </dependency>
         <!-- Ids Common core -->
-        <dependency>
-            <groupId>com.whm</groupId>
-            <artifactId>zhishiku-common-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.whm</groupId>
-            <artifactId>zhishiku-common-mybatis</artifactId>
-        </dependency>
-
-        <!-- Ids Common DataSource -->
         <!-- Spring Boot 的 Spring Web MVC 集成 & swagger -->
         <dependency>
             <groupId>com.whm</groupId>
@@ -48,8 +38,9 @@
         </dependency>
         <dependency>
             <groupId>com.whm</groupId>
-            <artifactId>zhishiku-common-log</artifactId>
+            <artifactId>zhishiku-common-security</artifactId>
         </dependency>
+
 
         <!-- 媒体服务 -->
         <dependency>

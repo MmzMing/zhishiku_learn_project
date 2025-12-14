@@ -93,6 +93,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- SpringBoot Admin -->
+<!--            <dependency>-->
+<!--                <groupId>de.codecentric</groupId>-->
+<!--                <artifactId>spring-boot-admin-starter-server</artifactId>-->
+<!--                <version>${spring-boot-admin.version}</version>-->
+<!--            </dependency>-->
+
             <!-- 数据库 -->
             <!--druid数据连接池-->
             <dependency>
@@ -316,9 +323,16 @@
                 <version>${whm.core.version}</version>
             </dependency>
 
+
+            <!-- Ibs Api -->
             <dependency>
                 <groupId>com.whm</groupId>
                 <artifactId>zhishiku-api-media</artifactId>
+                <version>${whm.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.whm</groupId>
+                <artifactId>zhishiku-api-system</artifactId>
                 <version>${whm.core.version}</version>
             </dependency>
         </dependencies>

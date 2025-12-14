@@ -22,13 +22,23 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
         </dependency>
-
-        <!-- Ibs common -->
+        <!-- Spring Security -->
         <dependency>
-            <groupId>com.whm</groupId>
-            <artifactId>zhishiku-common-core</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
+        <!-- Ids Common -->
+        <dependency>
+            <groupId>com.whm</groupId>
+            <artifactId>zhishiku-common-redis</artifactId>
+        </dependency>
+
+        <!-- Ids Api -->
+        <dependency>
+            <groupId>com.whm</groupId>
+            <artifactId>zhishiku-api-system</artifactId>
+        </dependency>
     </dependencies>
 
 

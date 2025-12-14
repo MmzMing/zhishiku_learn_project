@@ -26,8 +26,12 @@ public class RouterFunctionConfiguration {
     @SuppressWarnings("rawtypes")
     @Bean
     public RouterFunction routerFunction() {
-        return RouterFunctions.route(
-                RequestPredicates.GET("/code").and(RequestPredicates.accept(MediaType.TEXT_PLAIN)),
+        return RouterFunctions
+                // 图形验证码路由
+                .route(RequestPredicates.GET("/graph/code").and(RequestPredicates.accept(MediaType.TEXT_PLAIN)),
+                validateCodeHandler)
+                // 微信二维码路由 TODO 待完善
+                .andRoute(RequestPredicates.GET("/wechat/code"),
                 validateCodeHandler);
     }
 }

@@ -32,8 +32,6 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-
-
         <dependency>
             <groupId>io.minio</groupId>
             <artifactId>minio</artifactId>
@@ -63,20 +61,9 @@
 
         <dependency>
             <groupId>com.whm</groupId>
-            <artifactId>zhishiku-common-core</artifactId>
+            <artifactId>zhishiku-common-security</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.whm</groupId>
-            <artifactId>zhishiku-common-mybatis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.whm</groupId>
-            <artifactId>zhishiku-common-log</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.whm</groupId>
-            <artifactId>zhishiku-common-redis</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>com.whm</groupId>
             <artifactId>zhishiku-common-xxl-job</artifactId>

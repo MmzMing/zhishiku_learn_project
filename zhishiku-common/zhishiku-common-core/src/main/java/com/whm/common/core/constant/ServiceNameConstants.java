@@ -18,4 +18,9 @@ public class ServiceNameConstants {
      * 系统服务
      */
     public static final String SYSTEM_SERVICE = "zhishiku-api-system";
+
+    /**
+     * 内容管理服务
+     */
+    public static final String CONTENT_SERVICE = "zhishiku-service-content";
 }

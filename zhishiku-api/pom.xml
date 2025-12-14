@@ -18,6 +18,7 @@
 
     <modules>
         <module>zhishiku-api-media</module>
+        <module>zhishiku-api-system</module>
     </modules>
 
 </project>

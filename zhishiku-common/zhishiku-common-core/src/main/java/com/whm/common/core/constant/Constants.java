@@ -6,7 +6,14 @@ package com.whm.common.core.constant;
  * @author 吴华明
  */
 public class Constants {
-
+    /**
+     * UTF-8 字符集
+     */
+    public static final String UTF8 = "UTF-8";
+    /**
+     * GBK 字符集
+     */
+    public static final String GBK = "GBK";
     /**
      * 成功标记
      */
@@ -60,15 +67,7 @@ public class Constants {
      * 登录失败
      */
     public static final String LOGIN_FAIL = "Error";
-    /**
-     * UTF-8 字符集
-     */
-    public static final String UTF8 = "UTF-8";
 
-    /**
-     * GBK 字符集
-     */
-    public static final String GBK = "GBK";
 
     /**
      * 标识
@@ -76,14 +75,15 @@ public class Constants {
     public static final String FLAG = "-";
 
     /**
-     * http请求
+     * 空字符串
      */
-    public static final String HTTP = "http://";
+    public static final String NULL_STR = "";
 
     /**
-     * https请求
+     * 下划线
      */
-    public static final String HTTPS = "https://";
+    public static final char SEPARATOR = '_';
+
 
     /**
      * code

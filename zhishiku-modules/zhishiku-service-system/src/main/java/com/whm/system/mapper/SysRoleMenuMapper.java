@@ -1,7 +1,8 @@
 package com.whm.system.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.whm.system.domain.po.SysRoleMenu;
+
+import java.util.List;
 
 /**
  * 系统服务_角色和菜单关联表 表数据库访问层
@@ -9,6 +10,47 @@ import com.whm.system.domain.po.SysRoleMenu;
  * @author : 吴华明
  * @since : 2025-12-12 13:14:40
  */
-public interface SysRoleMenuMapper extends BaseMapper<SysRoleMenu> {
+public interface SysRoleMenuMapper {
+
+
+    /**
+     * 查询菜单使用数量
+     *
+     * @param menuId 菜单ID
+     * @return 结果
+     */
+    int checkMenuExistRole(Long menuId);
+
+    /**
+     * 通过角色ID删除角色和菜单关联
+     *
+     * @param ids 角色ID
+     * @return 结果
+     */
+    int deleteRoleMenuByRoleId(Long[] ids);
+
+    /**
+     * 批量根据角色ID删除角色和菜单关联
+     *
+     * @param roleMenuList 角色菜单列表
+     * @return 结果
+     */
+    int deleteRoleMenuByRoleIds(List<SysRoleMenu> roleMenuList);
+
+    /**
+     * 批量删除角色菜单关联信息
+     *
+     * @param ids 需要删除的数据ID
+     * @return 结果
+     */
+    int deleteRoleMenu(Long[] ids);
+
+    /**
+     * 批量新增角色菜单信息
+     *
+     * @param roleMenuList 角色菜单列表
+     * @return 结果
+     */
+    int batchRoleMenu(List<SysRoleMenu> roleMenuList);
 
 }

@@ -1,6 +1,7 @@
 package com.whm.auth;
 
 import com.whm.common.core.utils.ConvertReUtils;
+import com.whm.common.security.annotation.EnableRyFeignClients;
 import com.whm.common.swagger.annotation.EnableCustomSwagger2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -8,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
 
@@ -22,7 +22,7 @@ import java.net.UnknownHostException;
  */
 @Slf4j
 @EnableCustomSwagger2
-@EnableFeignClients
+@EnableRyFeignClients
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class AuthApplication extends SpringBootServletInitializer {
 
@@ -30,6 +30,7 @@ public class AuthApplication extends SpringBootServletInitializer {
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(AuthApplication.class);
     }
+
     public static void main(String[] args) throws UnknownHostException {
         ConfigurableApplicationContext application = SpringApplication.run(AuthApplication.class, args);
         Environment env = application.getEnvironment();

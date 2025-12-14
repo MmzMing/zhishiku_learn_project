@@ -18,6 +18,12 @@ public class CacheConstants {
      * 缓存刷新时间，默认120（分钟）
      */
     public final static long REFRESH_TIME = 120;
+
+
+    public static final long MILLIS_SECOND = 1000;
+
+    public static final long MILLIS_MINUTE = 60 * MILLIS_SECOND;
+
     /**
      * 权限缓存前缀
      */

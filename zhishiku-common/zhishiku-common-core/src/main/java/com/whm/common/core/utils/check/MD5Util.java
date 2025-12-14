@@ -1,4 +1,4 @@
-package com.whm.common.core.utils;
+package com.whm.common.core.utils.check;
 
 import java.security.MessageDigest;
 

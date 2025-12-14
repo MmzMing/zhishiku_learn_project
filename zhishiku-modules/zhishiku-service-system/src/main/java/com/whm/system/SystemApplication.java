@@ -2,13 +2,13 @@ package com.whm.system;
 
 
 import com.whm.common.core.utils.ConvertReUtils;
+import com.whm.common.security.annotation.EnableRyFeignClients;
 import com.whm.common.swagger.annotation.EnableCustomSwagger2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
 
@@ -22,7 +22,7 @@ import java.net.UnknownHostException;
  * @date 2025/9/7 16:23
  */
 @Slf4j
-@EnableFeignClients
+@EnableRyFeignClients
 @EnableCustomSwagger2
 @SpringBootApplication
 public class SystemApplication extends SpringBootServletInitializer {
