@@ -3,8 +3,10 @@ package com.whm.system.controller;
 import com.whm.common.core.domain.R;
 import com.whm.common.mybatis.page.PageQuery;
 import com.whm.common.mybatis.page.TableDataInfo;
+import com.whm.system.api.domain.dto.SysLoginInforDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.whm.system.domain.po.SysLoginInfor;
@@ -59,6 +61,19 @@ public class SysLoginInforController{
         return R.ok(sysLoginInforService.save(sysLoginInfor));
     }
 
+    /**
+     * 新增数据
+     *
+     * @param sysLoginInforDto 实例对象
+     * @return 实例对象
+     */
+    @ApiOperation(value = "API-新增数据")
+    @PostMapping("/saveLoginInfor")
+    public R<Boolean> saveLoginInfor(@RequestBody SysLoginInforDto sysLoginInforDto){
+        SysLoginInfor sysLoginInfor = new SysLoginInfor();
+        BeanUtils.copyProperties(sysLoginInforDto, sysLoginInfor);
+        return R.ok(sysLoginInforService.save(sysLoginInfor));
+    }
     /**
      * 更新数据
      *

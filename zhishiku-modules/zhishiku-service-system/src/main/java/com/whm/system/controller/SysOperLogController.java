@@ -3,10 +3,12 @@ package com.whm.system.controller;
 import com.whm.common.core.domain.R;
 import com.whm.common.mybatis.page.PageQuery;
 import com.whm.common.mybatis.page.TableDataInfo;
+import com.whm.system.api.domain.dto.SysOperLogDto;
 import com.whm.system.domain.po.SysOperLog;
 import com.whm.system.service.SysOperLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,6 +59,20 @@ public class SysOperLogController {
     @ApiOperation(value = "新增数据")
     @PostMapping("/add")
     public R<Boolean> add(@RequestBody SysOperLog sysOperLog) {
+        return R.ok(sysOperLogService.save(sysOperLog));
+    }
+
+    /**
+     * 新增数据
+     *
+     * @param sysOperLogDto 实例对象
+     * @return 实例对象
+     */
+    @ApiOperation(value = "新增数据")
+    @PostMapping("/saveLog")
+    public R<Boolean> saveLog(@RequestBody SysOperLogDto sysOperLogDto) {
+        SysOperLog sysOperLog = new SysOperLog();
+        BeanUtils.copyProperties(sysOperLogDto, sysOperLog);
         return R.ok(sysOperLogService.save(sysOperLog));
     }
 

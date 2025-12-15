@@ -52,14 +52,13 @@ public class LoginUserVo implements Serializable {
     private String ipaddr;
 
     /**
-     * 权限列表
-     */
-    private Set<String> permissions;
-
-    /**
      * 员工号
      */
     private String userAccount;
+    /**
+     * 权限列表
+     */
+    private Set<String> permissions;
 
     /**
      * 角色列表

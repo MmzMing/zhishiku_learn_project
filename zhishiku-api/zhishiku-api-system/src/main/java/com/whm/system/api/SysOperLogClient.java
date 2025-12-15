@@ -31,7 +31,7 @@ public interface SysOperLogClient {
      * @param source        请求来源
      * @return 结果
      */
-    @PostMapping("/1")
+    @PostMapping("/system/sysOperLog/saveLog")
     R<Boolean> saveLog(@RequestBody SysOperLogDto sysOperLogDto, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
 
     /**
@@ -41,6 +41,6 @@ public interface SysOperLogClient {
      * @param source           请求来源
      * @return 结果
      */
-    @PostMapping("/2")
+    @PostMapping("/system/sysLoginInfor/saveLoginInfor")
     R<Boolean> saveLoginInfor(@RequestBody SysLoginInforDto sysLogininforDto, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
 }

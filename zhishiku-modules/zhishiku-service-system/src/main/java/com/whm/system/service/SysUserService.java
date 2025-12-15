@@ -3,6 +3,7 @@ package com.whm.system.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.whm.common.mybatis.page.PageQuery;
 import com.whm.common.mybatis.page.TableDataInfo;
+import com.whm.system.api.domain.vo.SysUserVo;
 import com.whm.system.domain.po.SysUser;
 
 /**
@@ -21,5 +22,13 @@ public interface SysUserService extends IService<SysUser> {
      * @return 查询结果
      */
     TableDataInfo<SysUser> pageQuery(SysUser sysUser, PageQuery pageQuery);
+
+    /**
+     * 通过用户名查询用户
+     *
+     * @param userName 用户名
+     * @return 用户对象信息
+     */
+    SysUserVo selectUserByUserName(String userName);
 
 }

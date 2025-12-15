@@ -22,6 +22,14 @@ public interface SysRoleMenuMapper {
     int checkMenuExistRole(Long menuId);
 
     /**
+     * 根据用户id查询菜单树信息
+     *
+     * @param userId 用户ID
+     * @return int
+     */
+    List<Integer> selectMenuTreeByUserId(Long userId);
+
+    /**
      * 通过角色ID删除角色和菜单关联
      *
      * @param ids 角色ID

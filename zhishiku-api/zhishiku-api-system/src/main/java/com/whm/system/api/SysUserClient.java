@@ -25,12 +25,12 @@ public interface SysUserClient {
     /**
      * 通过用户名查询用户信息
      *
-     * @param username 用户名
+     * @param userName 用户名
      * @param source   请求来源
      * @return 结果
      */
-    @GetMapping("/user/info/{username}")
-    R<LoginUserVo> getUserInfo(@PathVariable("username") String username, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
+    @GetMapping("/system/sysUser/info/{userName}")
+    R<LoginUserVo> getUserInfo(@PathVariable("userName") String userName, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
 
     /**
      * 注册用户信息
@@ -39,6 +39,6 @@ public interface SysUserClient {
      * @param source  请求来源
      * @return 结果
      */
-    @PostMapping("/user/register")
+    @PostMapping("/system/sysUser/register")
     R<Boolean> registerUserInfo(@RequestBody SysUserVo sysUser, @RequestHeader(SecurityConstants.FROM_SOURCE) String source);
 }

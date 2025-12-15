@@ -10,11 +10,22 @@
 
 
     <select id="checkMenuExistRole" resultType="Integer">
-        select count(1) from sys_role_menu where menu_id = #{menuId}
+        select count(1)
+        from sys_role_menu
+        where menu_id = #{menuId}
+    </select>
+
+    <!-- 根据用户id查询角色所拥有的菜单id list -->
+    <select id="selectMenuTreeByUserId" resultType="Integer">
+        select srm.id from sys_user_role sur
+            left Join sys_role_menu srm on sur.role_id = srm.role_id
+            where sur.user_id = #{userId}
     </select>
 
     <delete id="deleteRoleMenuByRoleId" parameterType="Long">
-        delete from sys_role_menu where role_id=#{roleId}
+        delete
+        from sys_role_menu
+        where role_id = #{roleId}
     </delete>
     <delete id="deleteRoleMenuByRoleIds" parameterType="Long">
         delete from sys_role_menu where role_id in

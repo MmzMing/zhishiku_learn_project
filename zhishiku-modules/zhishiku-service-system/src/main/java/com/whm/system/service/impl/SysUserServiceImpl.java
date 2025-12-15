@@ -1,11 +1,14 @@
 package com.whm.system.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.whm.common.mybatis.page.PageQuery;
 import com.whm.common.mybatis.page.TableDataInfo;
+import com.whm.system.api.domain.vo.SysUserVo;
 import com.whm.system.domain.po.SysUser;
 import com.whm.system.mapper.SysUserMapper;
 import com.whm.system.service.SysUserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,4 +35,20 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         return TableDataInfo.build(sysUserMapper.pageQuery(pageQuery.build(), sysUser));
     }
 
+    /**
+     * 通过用户名查询用户
+     *
+     * @param userName 用户名
+     * @return 用户对象信息
+     */
+    @Override
+    public SysUserVo selectUserByUserName(String userName) {
+        SysUser sysUser = sysUserMapper.selectOne(new LambdaQueryWrapper<SysUser>()
+                .eq(SysUser::getUserName, userName)
+                //.eq(SysUser::getTenantId, tenantId)//TODO后面加入多租户
+                .eq(SysUser::getDeleted, 0));
+        SysUserVo sysUserVo = new SysUserVo();
+        BeanUtils.copyProperties(sysUser, sysUserVo);
+        return sysUserVo;
+    }
 }

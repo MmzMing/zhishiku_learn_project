@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
  */
 @Configuration
 @EnableWebSecurity
-@Profile("prod")
+@Profile("dev")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
@@ -38,23 +38,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 // 配置URL访问权限
                 .authorizeRequests()
-                // 允许匿名访问的路径
+                // 允许匿名访问的路径 - 相对于context-path配置，无需重复添加/auth前缀
                 .antMatchers(
                         "/login",
                         "/register",
                         "/actuator/**",
                         "/instance/**",
                         "/favicon.ico",
+                        "/swagger-ui/**",
+                        "/swagger-resources/**",
+                        "/v2/api-docs",
+                        "/v3/api-docs",
                         "/webjars/**"
                 ).permitAll()
                 // 其他所有请求都需要认证
                 .anyRequest().authenticated()
                 .and()
-                // 配置表单登录
-                .formLogin().loginProcessingUrl("/auth/login")
+                // 配置表单登录 - 使用不同的URL避免与自定义登录冲突
+                .formLogin().loginProcessingUrl("/spring-login")
+                // 移除loginPage配置，避免重定向时出现双重/auth前缀
                 .successHandler(successHandler).and()
                 // 配置登出功能
-                .logout().logoutUrl("/auth/logout")
+                .logout().logoutUrl("/logout")
                 .and()
                 // 启用HTTP基本认证
                 .httpBasic().and()

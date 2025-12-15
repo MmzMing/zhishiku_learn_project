@@ -122,16 +122,16 @@ public class PasswordAuthServiceImpl implements AuthService {
      * @return
      */
     public void recordLogininfor(String username, String status, String message) {
-        SysLoginInforDto logininfor = new SysLoginInforDto();
-        logininfor.setUserName(username);
-        logininfor.setIpAddr(IpUtils.getIpAddr(ServletUtils.getRequest()));
-        logininfor.setMsg(message);
+        SysLoginInforDto loginInfor = new SysLoginInforDto();
+        loginInfor.setUserName(username);
+        loginInfor.setIpAddr(IpUtils.getIpAddr(ServletUtils.getRequest()));
+        loginInfor.setMsg(message);
         // 日志状态
         if (StringUtils.equalsAny(status, Constants.LOGIN_SUCCESS, Constants.LOGOUT, Constants.REGISTER)) {
-            logininfor.setStatus(Constants.LOGIN_SUCCESS_STATUS);
+            loginInfor.setStatus(Constants.LOGIN_SUCCESS_STATUS);
         } else if (Constants.LOGIN_FAIL.equals(status)) {
-            logininfor.setStatus(Constants.LOGIN_FAIL_STATUS);
+            loginInfor.setStatus(Constants.LOGIN_FAIL_STATUS);
         }
-        sysOperLogClient.saveLoginInfor(logininfor, SecurityConstants.INNER);
+        sysOperLogClient.saveLoginInfor(loginInfor, SecurityConstants.INNER);
     }
 }
