@@ -1,0 +1,24 @@
+# 基础镜像
+FROM openjdk:8-jdk-alpine
+# author
+LABEL maintainer="gyl-mom"
+# 挂载目录
+VOLUME /mydate/myproject
+
+# 设置时区（alpine版本）
+RUN apk add --no-cache tzdata \
+    && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+    && echo "Asia/Shanghai" > /etc/timezone \
+    && apk del tzdata
+
+# 创建目录
+RUN mkdir -p /mydate/myproject
+# 指定路径
+WORKDIR /mydate/myproject
+# 复制jar文件到路径
+COPY ./target/zhishiku-service-content.jar /mydate/myproject/zhishiku-service-content.jar
+# 暴露服务端口
+EXPOSE 40010
+
+# 启动服务
+ENTRYPOINT java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar zhishiku-service-content.jar
