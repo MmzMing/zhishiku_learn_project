@@ -18,7 +18,7 @@ import java.util.List;
  * 分页查询实体类
  *
  * @author 吴华明
- * @date 2025/9/6 10:28
+ * @since 2025/9/6 10:28
  */
 @Data
 public class PageQuery implements Serializable {

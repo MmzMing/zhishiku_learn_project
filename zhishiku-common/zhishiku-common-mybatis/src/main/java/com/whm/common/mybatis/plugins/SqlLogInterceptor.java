@@ -27,7 +27,7 @@ import java.util.*;
  * 用于输出每条 SQL 语句及其执行时间
  *
  * @author 吴华明
- * @date 2025/9/6 11:41
+ * @since 2025/9/6 11:41
  */
 @Slf4j
 @Intercepts({

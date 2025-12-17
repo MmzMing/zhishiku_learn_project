@@ -9,9 +9,10 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * 提供通用唯一识别码（universally unique identifier）（UUID）实现
+ * 封装了UUID
  *
- * @author linsy
+ * @author WHM
+ * @since 2020/05/06 11:21:07
  */
 public final class UUID implements java.io.Serializable, Comparable<UUID> {
     private static final long serialVersionUID = -1185015143654744140L;

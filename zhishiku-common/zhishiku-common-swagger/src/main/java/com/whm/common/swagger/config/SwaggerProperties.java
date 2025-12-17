@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * @author 吴华明
- * @date 2025/9/6 19:07
+ * @since 2025/9/6 19:07
  */
 @Component
 @ConfigurationProperties("swagger")

@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * swagger 在 springboot 2.6.x 不兼容问题的处理
  *
  * @author 吴华明
- * @date 2025/9/6 19:08
+ * @since 2025/9/6 19:08
  */
 @Component
 public class SwaggerBeanPostProcessor implements BeanPostProcessor {

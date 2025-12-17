@@ -10,7 +10,7 @@ import com.whm.content.domain.po.ContentNote;
  * 内容管理服务_笔记信息表 表数据库访问层
  *
  * @author : 吴华明
- * @date : 2025-12-12 10:43:43
+ * @since : 2025-12-12 10:43:43
  */
 public interface ContentNoteMapper extends BaseMapper<ContentNote>{
     /**

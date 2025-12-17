@@ -12,7 +12,7 @@ import javax.annotation.Resource;
  * minio配置信息
  *
  * @author 吴华明
- * @date 2025/9/16 17:42
+ * @since 2025/9/16 17:42
  */
 @Slf4j
 @Configuration

@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
  * 网关启动程序
  *
  * @author 吴华明
- * @date 2025/9/11 12:49
+ * @since 2025/9/11 12:49
  */
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class GatewayApplication {

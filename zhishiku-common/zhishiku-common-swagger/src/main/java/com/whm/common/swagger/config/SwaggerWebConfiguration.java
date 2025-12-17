@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * swagger 资源映射路径
  *
  * @author 吴华明
- * @date 2025/9/6 19:09
+ * @since 2025/9/6 19:09
  */
 @Configuration
 public class SwaggerWebConfiguration implements WebMvcConfigurer {

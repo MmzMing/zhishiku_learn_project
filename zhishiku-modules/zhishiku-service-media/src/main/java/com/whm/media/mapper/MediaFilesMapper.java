@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
  * 媒资信息 表数据库访问层
  *
  * @author : 吴华明
- * @date : 2025-09-16 18:44:37
+ * @since : 2025-09-16 18:44:37
  */
 public interface MediaFilesMapper extends BaseMapper<MediaFiles>{
     /**

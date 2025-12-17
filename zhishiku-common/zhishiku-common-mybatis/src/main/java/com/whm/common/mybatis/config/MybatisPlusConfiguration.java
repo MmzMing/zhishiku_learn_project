@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
  * MYbatisPlus配置类
  *
  * @author 吴华明
- * @date 2025/9/6 13:10
+ * @since 2025/9/6 13:10
  */
 @Configuration
 @MapperScan("com.whm.**.mapper")

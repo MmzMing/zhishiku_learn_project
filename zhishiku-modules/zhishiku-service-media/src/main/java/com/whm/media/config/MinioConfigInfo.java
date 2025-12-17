@@ -11,7 +11,7 @@ import java.util.Map;
  * minio配置信息
  *
  * @author 吴华明
- * @date 2025/10/1 19:51
+ * @since 2025/10/1 19:51
  */
 @Data
 @Component

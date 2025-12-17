@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 /**
  * @author : 吴华明
- * @date : 2025-09-05 13:35:54
+ * @since : 2025-09-05 13:35:54
  */
 @Data
 public class BaseDomain implements Serializable {

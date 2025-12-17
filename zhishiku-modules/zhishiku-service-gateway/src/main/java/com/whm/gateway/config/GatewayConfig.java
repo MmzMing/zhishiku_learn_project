@@ -11,7 +11,7 @@ import org.springframework.core.annotation.Order;
  * 网关限流配置
  *
  * @author 吴华明
- * @date 2025/9/11 14:38
+ * @since 2025/9/11 14:38
  */
 @Configuration
 public class GatewayConfig {

@@ -26,7 +26,7 @@ import java.util.function.Predicate;
  * 拦截器
  *
  * @author 吴华明
- * @date 2025/9/6 18:43
+ * @since 2025/9/6 18:43
  */
 @Configuration
 @EnableSwagger2

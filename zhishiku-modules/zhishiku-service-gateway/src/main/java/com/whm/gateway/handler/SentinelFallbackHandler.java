@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
  * SentinelFallbackHandler 类用于处理限流异常，当请求超过限流阈值时，返回自定义的错误信息给客户端。
  *
  * @author 吴华明
- * @date 2025/9/11 14:39
+ * @since 2025/9/11 14:39
  */
 public class SentinelFallbackHandler implements WebExceptionHandler {
     private Mono<Void> writeResponse(ServerResponse response, ServerWebExchange exchange) {

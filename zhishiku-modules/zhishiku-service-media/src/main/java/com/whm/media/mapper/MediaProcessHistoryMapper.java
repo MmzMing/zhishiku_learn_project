@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
  * minio上传历史处理信息 表数据库访问层
  *
  * @author : 吴华明
- * @date : 2025-09-18 15:18:59
+ * @since : 2025-09-18 15:18:59
  */
 public interface MediaProcessHistoryMapper extends BaseMapper<MediaProcessHistory> {
     /**

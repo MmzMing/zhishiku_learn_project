@@ -1,7 +1,5 @@
 # 基础镜像
 FROM openjdk:8-jdk-alpine
-# author
-LABEL maintainer="gyl-mom"
 # 挂载目录
 VOLUME /mydate/myproject
 

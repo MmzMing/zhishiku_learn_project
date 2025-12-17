@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
  * sql操作工具类
  *
  * @author 吴华明
- * @date 2025/9/6 10:29
+ * @since 2025/9/6 10:29
  */
 public class SqlUtil {
     /**

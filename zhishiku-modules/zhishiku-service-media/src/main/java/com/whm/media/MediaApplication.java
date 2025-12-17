@@ -19,7 +19,7 @@ import java.net.UnknownHostException;
  * 媒咨管理
  *
  * @author 吴华明
- * @date 2025/9/16 14:56
+ * @since 2025/9/16 14:56
  */
 @Slf4j
 @EnableRyFeignClients

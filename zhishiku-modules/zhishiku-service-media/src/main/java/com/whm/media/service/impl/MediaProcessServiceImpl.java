@@ -41,7 +41,7 @@ import java.util.concurrent.Executor;
  * minio上传信息 表服务实现类
  *
  * @author : 吴华明
- * @date : 2025-09-18 15:16:59
+ * @since : 2025-09-18 15:16:59
  */
 @Slf4j
 @Service

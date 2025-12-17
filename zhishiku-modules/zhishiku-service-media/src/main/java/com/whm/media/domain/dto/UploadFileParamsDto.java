@@ -7,7 +7,7 @@ import lombok.Data;
  * TODO添加描述
  *
  * @author 吴华明
- * @date 2025/9/18 15:36
+ * @since 2025/9/18 15:36
  */
 @Data
 public class UploadFileParamsDto {

@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
  * 字符集工具类
  *
  * @author 吴华明
- * @date 2025/9/11 14:44
+ * @since 2025/9/11 14:44
  */
 public class CharsetKit {
     /**

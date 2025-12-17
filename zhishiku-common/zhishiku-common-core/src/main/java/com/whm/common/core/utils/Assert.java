@@ -10,7 +10,7 @@ import org.springframework.lang.Nullable;
  * 抛业务异常的断言工具
  *
  * @author 吴华明
- * @date 2025/9/16 19:44
+ * @since 2025/9/16 19:44
  */
 public class Assert {
 
