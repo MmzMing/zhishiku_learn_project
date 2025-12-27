@@ -7,27 +7,42 @@ spring:
           lowerCaseServiceId: true
           enabled: true
       routes:
-        # system服务
-        - id: zsk-system
-          uri: lb://zhishiku-service-system
+        # auth服务
+        - id: zsk-auth
+          uri: lb://zhishiku-service-auth
           predicates:
-            - Path=/system/**
-          # filters:
-          #   - StripPrefix=1
+            - Path=/auth/**
         # content服务
         - id: zsk-content
           uri: lb://zhishiku-service-content
           predicates:
             - Path=/content/**
-          # filters:
-          #   - StripPrefix=1
+        # media服务
+        - id: zsk-media
+          uri: lb://zhishiku-service-media
+          predicates:
+            - Path=/media/**
+        # system服务
+        - id: zsk-system
+          uri: lb://zhishiku-service-system
+          predicates:
+            - Path=/system/**
 # 安全配置
-# security:
-#   # 验证码
-#   captcha:
-#     enabled: true
-#     type: math
-#   # 防止XSS攻击
-#   xss:
-#     enabled: true
-#     excludeUrls:
+security:
+  gateway:
+    # 验证码
+    captcha:
+      enabled: true
+      type: math
+    # 防止XSS攻击
+    xss:
+      enabled: true
+      excludeUrls:
+    # 不校验白名单
+    ignore:
+      whites:
+        - /auth/logout
+        - /auth/login
+        - /auth/setCookie.do
+        - /auth/getWebRfTokenToken
+        - /auth/register

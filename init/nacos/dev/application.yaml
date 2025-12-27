@@ -3,6 +3,65 @@ spring:
   mvc:
     path-match:
       matching-strategy: ant_path_matcher
+  #调节允许文件大小
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  #配置本地优先
+  cloud:
+    config:
+      override-noe: true
+  # 安全配置
+  security:
+    user:
+      name: test
+      password: test
+  redis:
+    host: 192.168.101.51
+    port: 6379
+    password:
+    database: 8
+# Feign 配置
+feign:
+  # 启用 Sentinel 支持，用于服务间的熔断和限流
+  sentinel:
+    enabled: true
+  # 启用 OkHttp 作为 HTTP 客户端
+  okhttp:
+    enabled: true
+  # 启用 Apache HttpClient 作为 HTTP 客户端
+  httpclient:
+    enabled: true
+  # 客户端配置
+  client:
+    config:
+      # 默认配置，适用于所有 Feign 客户端
+      default:
+        # 连接超时时间：10秒
+        connectTimeout: 10000
+        # 读取超时时间：60秒
+        readTimeout: 60000
+      # 为特定服务 RemoteXXXApiService 自定义超时配置
+      RemoteXXXApiService:
+        # 连接超时时间：100秒
+        connectTimeout: 100000
+        # 读取超时时间：600秒
+        readTimeout: 600000
+  # 请求/响应压缩配置
+  compression:
+    # 请求压缩配置
+    request:
+      # 禁用请求压缩
+      enabled: false
+      # 最小请求大小阈值（字节）
+      min-request-size: 8192
+    # 响应压缩配置
+    response:
+      # 禁用响应压缩
+      enabled: false
+      # 是否使用 GZIP 解码器
+      useGzipDecoder: false
 
 #mybatis-plus
 mybatis-plus:
@@ -14,7 +73,55 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
   sql-log:
     enable: true
+
+
 #日志配置
 logging:
   level:
     com.whm.content.mapper: debug
+
+
+video-process:
+  ffmpeg-path: 'D:\my_project\zhishiku_learn_project\ffmpeg\ffmpeg.exe'
+
+
+xxl:
+  job:
+    # default:
+    #   config:
+    #     enabled: true
+    admin:
+      addresses: http://192.168.101.51:8088/xxl-job-admin
+      username: admin
+      password: 123456
+      login: /login
+    myjobgroup:
+      pageList: /jobgroup/pageList
+      save: /jobgroup/save
+    myjobinfo:
+      pageList: /jobinfo/pageList
+      add: /jobinfo/add
+      update: /jobinfo/update
+      start: /jobinfo/start
+      stop: /jobinfo/stop
+      remove: /jobinfo/remove
+      nextTriggerTime: /jobinfo/nextTriggerTime
+      trigger: /jobinfo/trigger
+    executor:
+      appname: zhishiku-process-service
+      # 执行器注册 [选填]：优先使用该配置作为注册地址，为空时使用内嵌服务 ”IP:PORT“ 作为注册地址。
+      #从而更灵活的支持容器类型执行器动态IP和动态映射端口问题。
+      address:
+      # 执行器IP [选填]：默认为空表示自动获取IP，多网卡时可手动设置指定IP，该IP不会绑定Host仅作为通讯实用；
+      # 地址信息用于 "执行器注册" 和 "调度中心请求并触发任务"；
+      ip:
+      # 执行器端口号 [选填]：小于等于0则自动获取；默认端口为9999，单机部署多个执行器时，注意要配置不同执行器端口；
+      port: 9999
+      title: '知识库定时调度'
+      # 执行器地址类型：0=自动注册、1=手动录入，默认为0
+      addressType: 0
+      # 手动录入 地址
+      addressList: 
+      logpath: /mydata/server_logs/xxl-job/jobhandler
+      logretentiondays: 30
+    accessToken: zhishiku.dev

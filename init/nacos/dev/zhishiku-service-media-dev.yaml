@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.101.51:3306/zsk_media?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&tinyInt1isBit=false&allowMultiQueries=true&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+thread-config:
+  media:
+    corePoolSize: 2
+    maxPoolSize: 50
+    keepAliveSeconds: 120
+    queueCapacity: 500
+    threadNamePrefix: media-thread-execute-
+minio:
+  endpoint: http://192.168.101.51:9091
+  accessKey: minio
+  secretKey: minio123
+  bucket:
+    files: files
+    videoFiles: video
